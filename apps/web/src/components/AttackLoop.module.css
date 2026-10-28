@@ -1,0 +1,24 @@
+.figure {
+  display: grid;
+  justify-items: center;
+  gap: var(--vy-4);
+  margin: 0;
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vy-2);
+  max-width: 40ch;
+  min-height: 3.2em;
+  color: var(--vy-ink-2);
+  font-size: var(--vy-text-sm);
+  text-align: center;
+}
+
+.caption :global(.mono) {
+  color: var(--vy-blocked);
+  font-weight: var(--vy-weight-strong);
+}

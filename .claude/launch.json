@@ -1,0 +1,7 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "web", "runtimeExecutable": "pnpm", "runtimeArgs": ["--filter", "@vyuh/web", "dev"], "port": 3000 },
+    { "name": "indexer", "runtimeExecutable": "pnpm", "runtimeArgs": ["--filter", "@vyuh/indexer", "dev"], "port": 42069 }
+  ]
+}

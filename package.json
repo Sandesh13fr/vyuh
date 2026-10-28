@@ -1,0 +1,29 @@
+{
+  "name": "vyuh",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Vyuh: onchain guardrails for AI trading agents on HashKey Chain, proven by a public jailbreak arena.",
+  "packageManager": "pnpm@11.5.2",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev:web": "pnpm --filter @vyuh/web dev",
+    "dev:agent": "pnpm --filter @vyuh/agent dev",
+    "dev:keeper": "pnpm --filter @vyuh/keeper dev",
+    "dev:mcp": "pnpm --filter @vyuh/mcp dev",
+    "dev:indexer": "pnpm --filter @vyuh/indexer dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "contracts:build": "cd contracts && forge build",
+    "contracts:test": "cd contracts && forge test -vvv",
+    "format": "prettier --write .",
+    "dev:arena": "pnpm --filter @vyuh/agent serve"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  }
+}

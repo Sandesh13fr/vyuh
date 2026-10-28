@@ -1,0 +1,76 @@
+.meter {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.meter li {
+  display: flex;
+}
+
+.arc {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+.lg .arc {
+  width: 36px;
+  height: 36px;
+}
+
+.arc.held {
+  stroke: var(--vy-held);
+}
+.arc.blocked {
+  stroke: var(--vy-blocked);
+}
+.arc.idle {
+  stroke: var(--vy-ring-quiet);
+}
+
+.trigger {
+  display: flex;
+  padding: 2px;
+  border: 0;
+  background: none;
+  border-radius: var(--vy-radius-sm);
+  cursor: help;
+}
+
+.tip {
+  max-width: 260px;
+  padding: var(--vy-2) var(--vy-3);
+  border: 1px solid var(--vy-line);
+  border-radius: var(--vy-radius-sm);
+  background: var(--vy-surface);
+  color: var(--vy-ink);
+  box-shadow: var(--vy-shadow-1);
+  font-size: var(--vy-text-sm);
+  line-height: 1.4;
+  z-index: 50;
+}
+
+.tip .held {
+  color: var(--vy-held);
+}
+.tip .blocked {
+  color: var(--vy-blocked);
+}
+.tip .idle {
+  color: var(--vy-ink-2);
+}
+
+.detail {
+  display: block;
+  margin-top: var(--vy-1);
+  color: var(--vy-ink-2);
+  font-family: var(--vy-mono);
+  font-size: var(--vy-text-xs);
+}
+
+.arrow {
+  fill: var(--vy-surface);
+}

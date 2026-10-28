@@ -1,0 +1,64 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vy-2);
+  min-height: 44px;
+  padding: 0 var(--vy-5);
+  border: 1px solid transparent;
+  border-radius: var(--vy-radius-pill);
+  font: inherit;
+  font-weight: var(--vy-weight-strong);
+  font-size: var(--vy-text-md);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--vy-fast) var(--vy-ease),
+    border-color var(--vy-fast) var(--vy-ease),
+    opacity var(--vy-fast) var(--vy-ease);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--vy-focus);
+  outline-offset: 3px;
+  border-radius: var(--vy-radius-pill);
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sm {
+  min-height: 36px;
+  padding: 0 var(--vy-4);
+  font-size: var(--vy-text-sm);
+}
+
+.primary {
+  background: var(--vy-ring);
+  color: var(--vy-on-ring);
+}
+.primary:not(:disabled):hover {
+  opacity: 0.9;
+}
+
+.secondary {
+  background: var(--vy-surface);
+  color: var(--vy-ink);
+  border-color: var(--vy-line);
+}
+.secondary:not(:disabled):hover {
+  border-color: var(--vy-ring);
+}
+
+.danger {
+  background: var(--vy-blocked);
+  color: var(--vy-surface);
+}
+.danger:not(:disabled):hover {
+  opacity: 0.9;
+}

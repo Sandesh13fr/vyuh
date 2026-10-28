@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vyuh Console</title>
+<meta name="description" content="Vyuh Console mockup: vault NAV, mandate rings, receipts, halt and withdraw, mandate signing.">
+<link rel="icon" href="../../brand/logo/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brand/tokens.css">
+<link rel="stylesheet" href="mockups.css">
+<script src="mockups.js"></script>
+<style>
+.vault{margin-top:28px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;padding:28px}
+.vault .id{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.vault .id h1{font-size:var(--vy-text-xl);font-weight:800;letter-spacing:-.025em}
+.addr{display:inline-flex;align-items:center;gap:6px;font:500 var(--vy-text-sm) var(--vy-mono);color:var(--vy-ink-2);background:none;border:0;padding:0;cursor:pointer}
+.addr:hover{color:var(--vy-ink)}
+.figs{display:flex;gap:40px;flex-wrap:wrap;margin-top:20px}
+.fig span{display:block;font-size:var(--vy-text-sm);color:var(--vy-ink-2)}
+.fig b{font:500 var(--vy-text-2xl)/1.1 var(--vy-mono);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.fig b small{font:500 var(--vy-text-md) var(--vy-font);color:var(--vy-ink-2);letter-spacing:0;margin-left:6px}
+.fig.pl b{color:var(--vy-held);font-size:var(--vy-text-xl)}
+.fig.pl b small{color:var(--vy-held)}
+.acts{display:flex;gap:10px;flex-wrap:wrap}
+
+.grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:20px;margin-top:20px;align-items:start}
+.mandate .pb{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;align-items:center}
+.donut{width:100%;max-width:220px;height:auto;justify-self:center}
+.donut .seg{fill:none;stroke-width:16;stroke:var(--vy-held)}
+.donut .n{font:600 11px var(--vy-mono);fill:var(--vy-ink-2);text-anchor:middle;dominant-baseline:central}
+.donut .big{font:800 30px var(--vy-font);fill:var(--vy-ink);text-anchor:middle;letter-spacing:-1px}
+.donut .lbl{font:500 11px var(--vy-font);fill:var(--vy-ink-2);text-anchor:middle}
+.donut .core{fill:var(--vy-core)}
+ol.lim{list-style:none;margin:0;padding:0}
+ol.lim li{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--vy-line);font-size:var(--vy-text-sm)}
+ol.lim li:first-child{border-top:0}
+ol.lim .k{font:600 var(--vy-text-xs) var(--vy-mono);color:var(--vy-held)}
+ol.lim code{font-size:var(--vy-text-xs);color:var(--vy-ink);text-align:right}
+.mfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 20px;border-top:1px solid var(--vy-line);font-size:var(--vy-text-xs);color:var(--vy-ink-2)}
+.mfoot .acts{gap:8px}
+
+.pos table.data td{padding:12px 20px}
+.pos table.data th{padding:9px 20px}
+.agentrow{display:grid;gap:10px;padding:16px 20px;border-top:1px solid var(--vy-line);font-size:var(--vy-text-sm)}
+.agentrow div{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.agentrow span{color:var(--vy-ink-2)}
+.sw{display:inline-flex;align-items:center;gap:10px}
+.sw i{width:34px;height:20px;border-radius:var(--vy-radius-pill);background:var(--vy-ring);position:relative}
+.sw i::after{content:"";position:absolute;top:3px;right:3px;width:14px;height:14px;border-radius:50%;background:var(--vy-on-ring)}
+
+.receipts{margin-top:20px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tabs button{border:0;background:none;padding:6px 10px;border-radius:var(--vy-radius-pill);font-size:var(--vy-text-sm);font-weight:500;color:var(--vy-ink-2);cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--vy-surface-2);color:var(--vy-ink)}
+td .why{display:block;font-size:var(--vy-text-xs);color:var(--vy-ink-2)}
+
+/* dialog, shown open */
+.dlg-sec{margin-top:56px}
+.stage{margin-top:20px;border-radius:var(--vy-radius-lg);background:color-mix(in srgb,var(--vy-ink) 55%,transparent);padding:48px 16px;display:grid;place-items:center;border:1px solid var(--vy-line)}
+.dialog{width:100%;max-width:520px;background:var(--vy-surface);border-radius:var(--vy-radius);box-shadow:var(--vy-shadow-1);border:1px solid var(--vy-line)}
+.dialog header{display:flex;justify-content:space-between;align-items:start;gap:12px;padding:20px 20px 0}
+.dialog header h3{font-size:var(--vy-text-lg);font-weight:800;letter-spacing:-.02em}
+.dialog header p{font-size:var(--vy-text-sm);color:var(--vy-ink-2);margin-top:4px}
+.diff{margin:16px 20px 0;border:1px solid var(--vy-line);border-radius:var(--vy-radius-sm);overflow:hidden}
+.diff div{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:9px 12px;border-top:1px solid var(--vy-line);font-size:var(--vy-text-sm)}
+.diff div:first-child{border-top:0}
+.diff code{font-size:var(--vy-text-xs);text-align:right}
+.diff s{color:var(--vy-ink-2)}
+.dir{font:600 var(--vy-text-xs) var(--vy-font);display:inline-flex;align-items:center;gap:4px;min-width:72px;justify-content:flex-end}
+.dir.loose{color:var(--vy-core-ink)}
+.dir.tight{color:var(--vy-held)}
+.domain{margin:12px 20px 0;padding:12px;background:var(--vy-surface-2);border-radius:var(--vy-radius-sm);font:400 var(--vy-text-xs)/1.7 var(--vy-mono);color:var(--vy-ink-2);overflow-wrap:anywhere}
+.domain b{color:var(--vy-ink);font-weight:500}
+.dialog footer{display:flex;justify-content:flex-end;gap:10px;padding:20px;flex-wrap:wrap}
+.warn{margin:12px 20px 0;font-size:var(--vy-text-sm);display:flex;gap:8px;align-items:flex-start}
+.warn .i{color:var(--vy-core-ink);margin-top:3px}
+
+@media (max-width:960px){.grid{grid-template-columns:1fr}}
+@media (max-width:680px){
+  .vault{grid-template-columns:minmax(0,1fr);padding:20px}
+  .addr{overflow-wrap:anywhere;text-align:left;font-size:var(--vy-text-xs)}
+  .figs{gap:20px}
+  .mandate .pb{grid-template-columns:1fr}
+  .donut{max-width:200px}
+  .stage{padding:24px 12px}
+  .diff div{grid-template-columns:minmax(0,1fr) auto}
+  .diff .dir{grid-column:1/-1;justify-content:flex-start}
+}
+</style>
+</head>
+<body>
+<!--
+THESIS: Your agent trades inside seven limits you signed. You can always halt and withdraw.
+FIRST VIEWPORT: vault id, status and NAV (focal), halt and withdraw; mandate ring meter and positions below.
+-->
+<header class="top wrap">
+  <a class="brand" href="index.html" aria-label="Vyuh mockups home">
+    <svg viewBox="0 0 220 64" role="img" aria-label="Vyuh"><g fill="none" stroke="var(--vy-ring)" stroke-width="6" stroke-linecap="round"><circle cx="32" cy="32" r="27" stroke-dasharray="140 30" transform="rotate(-60 32 32)"/><circle cx="32" cy="32" r="16" stroke-dasharray="80 20" transform="rotate(120 32 32)"/></g><circle cx="32" cy="32" r="6" fill="var(--vy-core)"/><text class="word" x="74" y="45" font-family="Schibsted Grotesk, system-ui, sans-serif" font-weight="800" font-size="40" letter-spacing="-1.4" fill="var(--vy-ink)">vyuh</text></svg>
+  </a>
+  <nav class="nav" aria-label="Screens"><a href="landing.html">Home</a><a href="arena.html">Arena</a><a href="console.html" aria-current="page">Console</a></nav>
+  <span class="wallet"><i></i>0x8c2E…19aF</span>
+  <button class="tbtn" type="button" data-theme-toggle aria-label="Switch light or dark theme"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span>Theme</span></button>
+</header>
+
+<main class="wrap">
+  <section class="panel focal vault" aria-label="Vault summary">
+    <div>
+      <div class="id">
+        <h1>Treasury vault</h1>
+        <span class="chip sm held"><i></i>Trading · all rings armed</span>
+        <span class="demo">demo data</span>
+      </div>
+      <button class="addr" type="button" aria-label="Copy vault address">0x5D7e3b91C04f2aE6d8B1c9F37a20E4d61B8eA41c <svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></svg></button>
+      <div class="figs">
+        <div class="fig"><span>Net asset value</span><b>12,480.36<small>USDT</small></b></div>
+        <div class="fig pl"><span>Today's P&amp;L, since 00:00 UTC</span><b>+84.12<small>USDT · +0.68%</small></b></div>
+      </div>
+    </div>
+    <div class="acts">
+      <button class="btn s lg" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Withdraw</button>
+      <button class="btn d lg" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>Halt vault</button>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="panel mandate" aria-label="Mandate">
+      <div class="ph"><h2>Mandate</h2><span class="chip sm"><i></i>version <code>4</code> · expires 31 Dec 2026</span></div>
+      <div class="pb">
+        <svg class="donut" id="donut" viewBox="0 0 220 220" role="img" aria-label="Ring meter: all seven rings armed and held"></svg>
+        <ol class="lim">
+          <li><span class="k">1</span>Spend cap<code>250.00 USDT / trade</code></li>
+          <li><span class="k">2</span>Allowlist<code>WHSK, USDT, USDC</code></li>
+          <li><span class="k">3</span>Oracle band<code>150 bps of APRO</code></li>
+          <li><span class="k">4</span>Slippage<code>50 bps</code></li>
+          <li><span class="k">5</span>Daily loss<code>300 bps · used 0</code></li>
+          <li><span class="k">6</span>KYC tier<code>≥ 2 ADVANCED</code></li>
+          <li><span class="k">7</span>Cooldown<code>300 s</code></li>
+        </ol>
+      </div>
+      <div class="mfoot">
+        <span>Your agent can tighten limits. Only you can loosen them.</span>
+        <span class="acts"><button class="btn s" type="button">Tighten</button><button class="btn p" type="button">Edit and sign</button></span>
+      </div>
+    </section>
+
+    <section class="panel pos" aria-label="Positions and agent">
+      <div class="ph"><h2>Positions</h2><span class="demo">demo data</span></div>
+      <div class="tw">
+        <table class="data">
+          <thead><tr><th>Token</th><th class="num">Balance</th><th class="num">Value, USDT</th></tr></thead>
+          <tbody>
+            <tr><td>WHSK</td><td class="num">9,812.19</td><td class="num">4,721.63</td></tr>
+            <tr><td>USDT</td><td class="num">6,240.50</td><td class="num">6,240.50</td></tr>
+            <tr><td>USDC</td><td class="num">1,518.23</td><td class="num">1,518.23</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="agentrow">
+        <div><span>Agent operator</span><code>0x41Ac…D09b</code></div>
+        <div><span>Oracle HSK/USD</span><code>0.4812 · 14 s old</code></div>
+        <div><span>Auto-trade</span><span class="sw" role="switch" aria-checked="true"><i></i>on</span></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="panel receipts" aria-label="Receipts">
+    <div class="ph">
+      <h2>Receipts</h2>
+      <div class="tabs" role="tablist"><button role="tab" aria-selected="true">All decisions</button><button role="tab" aria-selected="false">Executed</button><button role="tab" aria-selected="false">Blocked</button><a class="btn q" href="#">Export CSV</a></div>
+    </div>
+    <div class="tw">
+      <table class="data">
+        <thead><tr><th>Time, UTC</th><th class="num">Block</th><th>Decision</th><th>Trade</th><th class="num">Amount in</th><th class="num">Amount out</th><th class="num">NAV after</th><th>Tx</th></tr></thead>
+        <tbody>
+          <tr><td class="m">14:20:11</td><td class="num">9,418,207</td><td><span class="chip sm held"><i></i>held</span></td><td>Buy WHSK with USDT</td><td class="num">250.00 USDT</td><td class="num">519.53 WHSK</td><td class="num">12,480.36</td><td class="m"><a href="#">0x9f2c…41ab</a></td></tr>
+          <tr><td class="m">13:54:40</td><td class="num">9,417,442</td><td><span class="chip sm held"><i></i>held</span></td><td>Sell WHSK for USDT</td><td class="num">300.00 WHSK</td><td class="num">144.06 USDT</td><td class="num">12,476.90</td><td class="m"><a href="#">0x2b84…9e11</a></td></tr>
+          <tr><td class="m">13:31:02</td><td class="num">9,416,733</td><td><span class="chip sm blocked"><i></i>ring 7</span></td><td>Buy WHSK with USDC<span class="why"><code>COOLDOWN</code> too soon after the last trade</span></td><td class="num">200.00 USDC</td><td class="num">reverted</td><td class="num">–</td><td class="m"><a href="#">0x77d0…0c19</a></td></tr>
+          <tr><td class="m">12:58:19</td><td class="num">9,415,751</td><td><span class="chip sm blocked"><i></i>ring 3</span></td><td>Buy WHSK with USDT<span class="why"><code>ORACLE_BAND</code> price 3.2% off oracle</span></td><td class="num">180.00 USDT</td><td class="num">reverted</td><td class="num">–</td><td class="m"><a href="#">0x3ae8…b0d2</a></td></tr>
+          <tr><td class="m">12:40:05</td><td class="num">9,415,204</td><td><span class="chip sm held"><i></i>held</span></td><td>Sell WHSK for USDT</td><td class="num">410.00 WHSK</td><td class="num">197.46 USDT</td><td class="num">12,463.18</td><td class="m"><a href="#">0x5f17…ca40</a></td></tr>
+          <tr><td class="m">11:12:44</td><td class="num">9,412,584</td><td><span class="chip sm held"><i></i>held</span></td><td>Buy WHSK with USDT</td><td class="num">240.00 USDT</td><td class="num">499.17 WHSK</td><td class="num">12,431.75</td><td class="m"><a href="#">0xd0b9…7a26</a></td></tr>
+          <tr><td class="m">09:03:27</td><td class="num">9,408,705</td><td><span class="chip sm blocked"><i></i>ring 1</span></td><td>Buy WHSK with USDT<span class="why"><code>SPEND_CAP</code> 600.00 is above the 250.00 cap</span></td><td class="num">600.00 USDT</td><td class="num">reverted</td><td class="num">–</td><td class="m"><a href="#">0xc61f…5e37</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="dlg-sec" aria-label="Mandate sign dialog, open state">
+    <h2>Mandate sign dialog, open state</h2>
+    <p class="sub">Opened from "Edit and sign". Loosening needs the owner's EIP-712 signature; tightening shows its direction.</p>
+    <div class="stage">
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t">
+        <header>
+          <div><h3 id="dlg-t">Sign mandate v5</h3><p>2 limits change. Review each one before you sign.</p></div>
+          <button class="btn q" type="button" aria-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </header>
+        <div class="diff">
+          <div><span>1 Spend cap</span><code><s>250.00</s> → 400.00 USDT</code><span class="dir loose"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M12 19V5M6 11l6-6 6 6"/></svg>loosens</span></div>
+          <div><span>7 Cooldown</span><code><s>300</s> → 600 s</code><span class="dir tight"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M12 5v14M6 13l6 6 6-6"/></svg>tightens</span></div>
+          <div><span class="muted">5 other rings</span><code class="muted">unchanged</code><span></span></div>
+        </div>
+        <p class="warn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>Loosening the spend cap lets each trade move up to 400.00 USDT. Your agent can tighten it again, never loosen it.</p>
+        <div class="domain">domain <b>Vyuh</b> · version <b>1</b> · chainId <b>177</b><br>verifyingContract <b>0xA93c…4E7d</b> (MandateRegistry)<br>vault <b>0x5D7e…A41c</b> · expiry <b>2026-12-31 23:59 UTC</b></div>
+        <footer><button class="btn s" type="button">Cancel</button><button class="btn p" type="button">Sign in wallet</button></footer>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Receipts come from <code>TradeExecuted</code> and reverted preflights, indexed for this vault.</span>
+    <span class="demo">mockup · all figures are demo data</span>
+  </footer>
+</main>
+
+<script>
+// Ring meter: 7 gapped arcs, clockwise from 12 o'clock in ring order. All held here.
+(function () {
+  var s = document.getElementById('donut'), r = 80, C = 2 * Math.PI * r, seg = C / 7, gap = 10, h = '';
+  for (var i = 0; i < 7; i++) {
+    var a0 = -90 + i * 360 / 7, mid = (a0 + 180 / 7) * Math.PI / 180;
+    h += '<circle class="seg" cx="110" cy="110" r="' + r + '" stroke-dasharray="' + (seg - gap) + ' ' + (C - seg + gap) + '" transform="rotate(' + (a0 + gap / 2 / C * 360) + ' 110 110)"/>';
+    h += '<text class="n" x="' + (110 + 101 * Math.cos(mid)).toFixed(1) + '" y="' + (110 + 101 * Math.sin(mid)).toFixed(1) + '">' + (i + 1) + '</text>';
+  }
+  s.innerHTML = h + '<text class="big" x="110" y="112">7/7</text><text class="lbl" x="110" y="132">rings held today</text>';
+})();
+</script>
+</body>
+</html>

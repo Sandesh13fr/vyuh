@@ -1,0 +1,80 @@
+/* Vyuh design tokens. Source of truth: brand/tokens.css. Copy into apps/web/src/styles/tokens.css. */
+:root {
+  /* Color: light (bright hall, projector, daylight phone) */
+  --vy-bg: #f3f4fa;
+  --vy-surface: #ffffff;
+  --vy-surface-2: #e9ebf6;
+  --vy-ink: #161a3d;
+  --vy-ink-2: #4a4f75;
+  --vy-line: #d9dbec;
+  --vy-ring: #2b3180;          /* active ring, primary actions, links */
+  --vy-ring-quiet: #c9cce6;    /* idle ring tracks */
+  --vy-core: #f2b233;          /* marigold: the protected core, fills only */
+  --vy-core-ink: #a35f00;      /* marigold as text on light */
+  --vy-held: #0e7a6d;          /* rings held, trade passed, healthy */
+  --vy-blocked: #b8332a;       /* attack stopped, violation, halt */
+  --vy-on-ring: #ffffff;
+  --vy-on-core: #161a3d;
+  --vy-focus: #2b3180;
+
+  /* Type */
+  --vy-font: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --vy-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --vy-text-xs: 0.75rem;
+  --vy-text-sm: 0.875rem;
+  --vy-text-md: 1rem;
+  --vy-text-lg: 1.25rem;
+  --vy-text-xl: 1.75rem;
+  --vy-text-2xl: 2.5rem;
+  --vy-text-3xl: clamp(2.5rem, 6vw, 4.5rem);
+  --vy-weight-body: 400;
+  --vy-weight-strong: 600;
+  --vy-weight-display: 800;
+  --vy-track-display: -0.035em;
+
+  /* Space (4px base) */
+  --vy-1: 4px; --vy-2: 8px; --vy-3: 12px; --vy-4: 16px; --vy-5: 24px;
+  --vy-6: 32px; --vy-7: 48px; --vy-8: 64px; --vy-9: 96px;
+
+  /* Shape */
+  --vy-radius-sm: 6px;
+  --vy-radius: 12px;
+  --vy-radius-lg: 20px;
+  --vy-radius-pill: 999px;
+  --vy-ring-stroke: 9;         /* svg ring stroke at 300px emblem */
+
+  /* Depth */
+  --vy-shadow-1: 0 1px 2px rgb(22 26 61 / 0.06), 0 2px 8px rgb(22 26 61 / 0.06);
+  --vy-shadow-2: 0 8px 28px -12px rgb(43 49 128 / 0.35);
+
+  /* Motion: rings tighten, never bounce */
+  --vy-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --vy-fast: 140ms;
+  --vy-base: 240ms;
+  --vy-slow: 600ms;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --vy-bg: #0d0f2a; --vy-surface: #15183a; --vy-surface-2: #1c2048;
+    --vy-ink: #ecedf9; --vy-ink-2: #a9acd0; --vy-line: #2a2e5c;
+    --vy-ring: #8f96ff; --vy-ring-quiet: #2a2e5c;
+    --vy-core-ink: #f2b233; --vy-held: #3cc7b4; --vy-blocked: #ff7a6b;
+    --vy-on-ring: #0d0f2a; --vy-focus: #8f96ff;
+    --vy-shadow-1: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 8px rgb(0 0 0 / 0.3);
+    --vy-shadow-2: 0 8px 28px -12px rgb(143 150 255 / 0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --vy-bg: #0d0f2a; --vy-surface: #15183a; --vy-surface-2: #1c2048;
+  --vy-ink: #ecedf9; --vy-ink-2: #a9acd0; --vy-line: #2a2e5c;
+  --vy-ring: #8f96ff; --vy-ring-quiet: #2a2e5c;
+  --vy-core-ink: #f2b233; --vy-held: #3cc7b4; --vy-blocked: #ff7a6b;
+  --vy-on-ring: #0d0f2a; --vy-focus: #8f96ff;
+  --vy-shadow-1: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 8px rgb(0 0 0 / 0.3);
+  --vy-shadow-2: 0 8px 28px -12px rgb(143 150 255 / 0.35);
+  color-scheme: dark;
+}

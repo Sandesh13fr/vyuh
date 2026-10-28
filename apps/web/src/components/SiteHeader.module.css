@@ -1,0 +1,68 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid var(--vy-line);
+  background: var(--vy-bg);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vy-2) var(--vy-5);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--vy-3) var(--vy-4);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vy-2);
+  color: var(--vy-ink);
+  text-decoration: none;
+}
+
+.word {
+  font-size: var(--vy-text-lg);
+  font-weight: var(--vy-weight-display);
+  letter-spacing: var(--vy-track-display);
+}
+
+.nav {
+  display: flex;
+  gap: var(--vy-1);
+}
+
+.link {
+  padding: var(--vy-2) var(--vy-3);
+  border-radius: var(--vy-radius-pill);
+  color: var(--vy-ink-2);
+  font-size: var(--vy-text-sm);
+  font-weight: var(--vy-weight-strong);
+  text-decoration: none;
+}
+.link:hover {
+  color: var(--vy-ink);
+}
+.link[aria-current="page"] {
+  background: var(--vy-surface-2);
+  color: var(--vy-ink);
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  gap: var(--vy-2);
+  margin-left: auto;
+}
+
+/* Phone: brand + tools on row one, nav below. */
+@media (max-width: 640px) {
+  .nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+  }
+}

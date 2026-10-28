@@ -1,0 +1,129 @@
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--vy-7);
+  min-height: calc(100dvh - 140px);
+}
+
+.copy {
+  display: grid;
+  gap: var(--vy-5);
+}
+
+.eyebrow {
+  color: var(--vy-ink-2);
+  font-size: var(--vy-text-sm);
+  font-weight: var(--vy-weight-strong);
+}
+
+.thesis {
+  font-size: var(--vy-text-3xl);
+  font-weight: var(--vy-weight-display);
+  letter-spacing: var(--vy-track-display);
+}
+
+.lede {
+  max-width: 52ch;
+  color: var(--vy-ink-2);
+  font-size: var(--vy-text-lg);
+}
+
+.counter {
+  display: grid;
+  gap: var(--vy-1);
+}
+
+.count {
+  font-family: var(--vy-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--vy-text-2xl);
+  font-weight: var(--vy-weight-strong);
+  line-height: 1;
+  color: var(--vy-core-ink);
+}
+
+.countLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vy-2);
+  color: var(--vy-ink-2);
+  font-size: var(--vy-text-sm);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vy-3);
+}
+
+.section {
+  display: grid;
+  gap: var(--vy-5);
+  padding-top: var(--vy-8);
+}
+
+.h2 {
+  font-size: var(--vy-text-xl);
+  font-weight: var(--vy-weight-display);
+}
+
+.rings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--vy-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ring {
+  display: flex;
+  gap: var(--vy-3);
+  padding: var(--vy-4);
+  border: 1px solid var(--vy-line);
+  border-radius: var(--vy-radius);
+  background: var(--vy-surface);
+}
+
+.ringNo {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--vy-ring);
+  border-radius: var(--vy-radius-pill);
+  color: var(--vy-ring);
+  font-family: var(--vy-mono);
+  font-size: var(--vy-text-sm);
+  font-weight: var(--vy-weight-strong);
+}
+
+.ringCheck {
+  display: block;
+  color: var(--vy-ink-2);
+  font-size: var(--vy-text-sm);
+}
+
+.steps {
+  display: grid;
+  gap: var(--vy-3);
+  max-width: 70ch;
+  margin: 0;
+  padding-left: var(--vy-5);
+}
+
+.note {
+  max-width: 70ch;
+  color: var(--vy-ink-2);
+}
+
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: var(--vy-6);
+    min-height: 0;
+  }
+}

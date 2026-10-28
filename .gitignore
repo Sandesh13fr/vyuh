@@ -1,0 +1,21 @@
+node_modules/
+.pnpm-store/
+dist/
+.next/
+out/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+# foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/*/31337/
+# ponder
+services/indexer/.ponder/
+services/indexer/generated/
+# impeccable local
+.impeccable/config.local.json
+.impeccable/review/

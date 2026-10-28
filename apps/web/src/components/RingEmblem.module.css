@@ -1,0 +1,71 @@
+.emblem {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.ring {
+  transition: stroke var(--vy-base) var(--vy-ease);
+}
+.idle {
+  stroke: var(--vy-ring-quiet);
+}
+.active {
+  stroke: var(--vy-ring);
+}
+.blocked {
+  stroke: var(--vy-blocked);
+}
+
+.core {
+  fill: var(--vy-core);
+}
+
+/* The one authored moment: the dot travels inward, the ring that held flashes. */
+.dot {
+  fill: var(--vy-blocked);
+  transform: translateY(var(--vy-stop));
+  animation: travel var(--vy-slow) var(--vy-ease) both;
+}
+
+.animate .blocked {
+  animation: flash var(--vy-slow) var(--vy-ease) var(--vy-slow) both;
+}
+
+@keyframes travel {
+  from {
+    transform: translateY(-160px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(var(--vy-stop));
+  }
+}
+
+@keyframes flash {
+  0% {
+    stroke: var(--vy-ring-quiet);
+  }
+  30% {
+    stroke: var(--vy-blocked);
+    stroke-width: 13;
+  }
+  100% {
+    stroke: var(--vy-blocked);
+    stroke-width: 9;
+  }
+}
+
+/* Reduced motion: no travel, the blocked ring is simply shown as blocked. */
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .animate .blocked {
+    animation: none;
+  }
+  .ring {
+    transition: none;
+  }
+}

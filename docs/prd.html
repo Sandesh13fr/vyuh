@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vyuh PRD</title>
+<meta name="description" content="Product requirements and phased roadmap for Vyuh, HSK Chain Horizon Hackathon, Track 1.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f4fa; --surface:#ffffff; --ink:#161a3d; --muted:#4a4f75; --line:#d9dbec;
+  --accent:#a35f00; --fill:#f2b233; --safe:#0e7a6d; --danger:#b8332a; --indigo:#2b3180;
+  --ring-a:#2b3180; --ring-b:#d9dbec;
+  --font:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d0f2a; --surface:#15183a; --ink:#ecedf9; --muted:#a9acd0; --line:#2a2e5c;
+    --accent:#f2b233; --fill:#f2b233; --safe:#3cc7b4; --danger:#ff7a6b; --indigo:#8f96ff;
+    --ring-a:#8f96ff; --ring-b:#2a2e5c; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d0f2a; --surface:#15183a; --ink:#ecedf9; --muted:#a9acd0; --line:#2a2e5c;
+  --accent:#f2b233; --fill:#f2b233; --safe:#3cc7b4; --danger:#ff7a6b; --indigo:#8f96ff;
+  --ring-a:#8f96ff; --ring-b:#2a2e5c; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased}
+::selection{background:var(--fill);color:#161a3d}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+a{color:var(--indigo);text-underline-offset:3px}
+code,.mono{font-family:var(--mono);font-size:.86em}
+html{scrollbar-color:var(--line) var(--bg)}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:-.01em}
+.brand svg{width:26px;height:26px}
+.meta{color:var(--muted);font-size:14px}
+.toggle{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font:500 14px var(--font);cursor:pointer}
+.toggle:hover{border-color:var(--indigo)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding:56px 0 48px}
+h1{font-size:clamp(2.2rem,5vw,4rem);line-height:1.02;letter-spacing:-.035em;margin:0 0 20px;font-weight:800;text-wrap:balance}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:1.15rem;color:var(--muted);max-width:52ch;margin:0 0 24px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.facts li{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:14px}
+.facts b{font-weight:600}
+.vyuh{width:100%;max-width:440px;justify-self:center}
+.vyuh .ring{fill:none;stroke-width:9;stroke-linecap:round}
+.vyuh .label{font:500 11px var(--mono);fill:var(--muted)}
+.vyuh .core{fill:var(--fill)}
+.attack{fill:var(--danger)}
+.blocked{stroke:var(--danger);stroke-width:3;stroke-linecap:round}
+@media (prefers-reduced-motion:no-preference){
+  .attack{animation:dive 3.2s cubic-bezier(.16,1,.3,1) .4s both}
+  .blocked{animation:pop .4s ease-out 3.2s both}
+  @keyframes dive{from{transform:translate(0,0)}to{transform:translate(55px,43px)}}
+  @keyframes pop{from{opacity:0}to{opacity:1}}
+}
+.caption{font-size:13px;color:var(--muted);text-align:center;margin-top:8px}
+
+/* layout */
+.doc{display:grid;grid-template-columns:200px 1fr;gap:56px;padding:24px 0 80px;border-top:1px solid var(--line)}
+nav.toc{position:sticky;top:24px;align-self:start;font-size:14px}
+nav.toc p{font-weight:700;margin:0 0 8px}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;padding:4px 0}
+nav.toc a:hover{color:var(--ink)}
+section{padding-top:40px}
+h2{font-size:1.75rem;letter-spacing:-.025em;line-height:1.15;margin:0 0 16px;font-weight:800}
+h3{font-size:1.05rem;margin:28px 0 8px;font-weight:700}
+p{max-width:70ch;margin:0 0 14px}
+.muted{color:var(--muted)}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.split > div{padding:24px}
+.split > div + div{border-left:1px solid var(--line)}
+.split h3{margin-top:0}
+.tag{display:inline-block;font:500 12px var(--mono);padding:2px 8px;border-radius:6px;background:color-mix(in srgb,var(--fill) 25%,transparent);color:var(--ink)}
+
+table{width:100%;border-collapse:collapse;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;font-size:13px;color:var(--muted);background:color-mix(in srgb,var(--line) 35%,var(--surface))}
+tr:last-child td{border-bottom:0}
+td:first-child{white-space:nowrap;font-weight:600}
+.scroll{overflow-x:auto;border-radius:12px}
+.must{color:var(--safe);font-weight:600}
+.should{color:var(--accent);font-weight:600}
+.wont{color:var(--muted);font-weight:600}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:stretch;margin:8px 0 16px}
+.node{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:14px;position:relative}
+.node b{display:block;font-size:15px;margin-bottom:4px}
+.node.key{border-color:var(--indigo);box-shadow:0 6px 20px -10px var(--indigo)}
+.node:not(:last-child)::after{content:"";position:absolute;right:-8px;top:50%;width:6px;height:6px;border-top:2px solid var(--muted);border-right:2px solid var(--muted);transform:translateY(-50%) rotate(45deg)}
+.side{display:flex;flex-wrap:wrap;gap:8px;font-size:14px}
+.side span{border:1px dashed var(--line);border-radius:8px;padding:6px 10px;background:var(--surface)}
+
+ol.req{padding-left:0;list-style:none;margin:0}
+ol.req li{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+ol.req li:last-child{border-bottom:0}
+ol.req code{color:var(--accent);font-weight:500}
+
+/* roadmap */
+.road{position:relative;margin:8px 0 0;padding:0;list-style:none}
+.road::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.road li{position:relative;padding:0 0 28px 44px}
+.road li::before{content:"";position:absolute;left:4px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--indigo)}
+.road li.now::before{background:var(--fill);border-color:var(--accent)}
+.road li.later::before{border-color:var(--line)}
+.road .when{font:500 13px var(--mono);color:var(--muted)}
+.road h3{margin:2px 0 6px}
+.road ul{margin:0;padding-left:18px}
+.road .exit{font-size:14px;color:var(--safe);margin-top:6px}
+
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:14px}
+
+.hero > *,.doc > main{min-width:0}
+td.mono{word-break:break-all}
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;padding:36px 0 24px;gap:24px}
+  .vyuh{max-width:320px}
+  .doc{grid-template-columns:1fr;gap:0}
+  nav.toc{display:none}
+  .split{grid-template-columns:1fr}
+  .split > div + div{border-left:0;border-top:1px solid var(--line)}
+  .flow{grid-template-columns:1fr}
+  .node:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-8px;transform:translateX(-50%) rotate(135deg)}
+  .meta{display:none}
+}
+@media print{.toggle,nav.toc{display:none}.doc{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<!--
+THESIS: A PRD that shows the mechanism, not a spec template: seven policy rings that stop an attack.
+OWN-WORLD: Indigo ink on cool paper, marigold core, the Chakravyuh spiral as the only graphic.
+STORY: Reader gets the problem, the two-part answer, scope, architecture, then the phased path to Nov 1.
+FIRST VIEWPORT: Thesis line left, animated vyuh right; attack dot dives and is stopped at ring 3.
+FORM: Read-mode document, sticky TOC, tables for scope, timeline for roadmap.
+-->
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="var(--indigo)" stroke-width="3"/><circle cx="16" cy="16" r="8" fill="none" stroke="var(--indigo)" stroke-width="3" stroke-dasharray="30 8"/><circle cx="16" cy="16" r="3" fill="var(--fill)"/></svg>
+      Vyuh
+    </div>
+    <span class="meta">PRD v1 · 28 Oct 2026</span>
+    <button class="toggle" id="theme" type="button" aria-label="Toggle colour theme">Theme</button>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Agents trade.<br><em>Vyuh enforces.</em><br>Chakravyuh dares you to break it.</h1>
+      <p class="lede">An onchain guardrail layer for AI trading agents on HashKey Chain, proven live by a public jailbreak arena where the audience tries to drain a real-money agent.</p>
+      <ul class="facts">
+        <li><b>Event</b> HSK Chain Horizon, India</li>
+        <li><b>Track</b> 1 · AI Agent Trading</li>
+        <li><b>Submit</b> 1 Nov, 21:30 IST</li>
+        <li><b>Demo</b> 4 Nov, Mumbai</li>
+      </ul>
+    </div>
+    <figure style="margin:0">
+      <svg class="vyuh" viewBox="0 0 300 300" role="img" aria-label="Seven policy rings around a vault; an attack is stopped at the third ring">
+        <g transform="translate(150 150)">
+          <circle class="ring" r="138" stroke="var(--ring-b)" stroke-dasharray="760 107"/>
+          <circle class="ring" r="120" stroke="var(--ring-b)" stroke-dasharray="80 30 560 84" transform="rotate(40)"/>
+          <circle class="ring" r="102" stroke="var(--ring-a)" stroke-dasharray="560 81"/>
+          <circle class="ring" r="84" stroke="var(--ring-b)" stroke-dasharray="460 68" transform="rotate(120)"/>
+          <circle class="ring" r="66" stroke="var(--ring-b)" stroke-dasharray="360 55" transform="rotate(200)"/>
+          <circle class="ring" r="48" stroke="var(--ring-b)" stroke-dasharray="260 42" transform="rotate(280)"/>
+          <circle class="ring" r="30" stroke="var(--ring-b)" stroke-dasharray="160 28" transform="rotate(10)"/>
+          <circle class="core" r="14"/>
+        </g>
+        <circle class="attack" cx="8" cy="40" r="7"/>
+        <line class="blocked" x1="54" y1="74" x2="72" y2="92"/>
+        <line class="blocked" x1="72" y1="74" x2="54" y2="92"/>
+      </svg>
+      <figcaption class="caption">An injected intent passes the LLM, then dies at ring 3: oracle price band.</figcaption>
+    </figure>
+  </div>
+
+  <div class="doc">
+    <nav class="toc" aria-label="Contents">
+      <p>Contents</p>
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#users">Users</a>
+      <a href="#goals">Goals</a>
+      <a href="#scope">Scope</a>
+      <a href="#reqs">Requirements</a>
+      <a href="#arch">Architecture</a>
+      <a href="#nfr">Constraints</a>
+      <a href="#risks">Risks</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#open">Open questions</a>
+    </nav>
+
+    <main>
+      <section id="problem" style="padding-top:16px">
+        <h2>Problem</h2>
+        <p>AI agents can now hold keys and trade. The LLM deciding the trade can be prompt-injected, hallucinate, or chase losses. Today the only safety is a system prompt and offchain checks, which the same compromise can bypass.</p>
+        <p>Funds, family offices and regulated users on HashKey will not delegate capital to an agent whose limits live in a prompt. They need limits a contract enforces, tied to who the user is (KYC), and an audit trail they can show a regulator.</p>
+      </section>
+
+      <section id="solution">
+        <h2>Solution</h2>
+        <div class="split">
+          <div>
+            <h3>Vyuh <span class="tag">the layer</span></h3>
+            <p>Owner signs an EIP-712 Risk Mandate. Every agent trade is a structured intent checked onchain by seven policy rings before it can touch HSKSwap. Agent can tighten limits, never loosen them. KYC SBT tier sets the ceiling. Daily loss limit from oracle NAV auto-halts the vault.</p>
+            <p class="muted" style="margin:0">Plugs into any agent via MCP server, SDK or direct contract call.</p>
+          </div>
+          <div>
+            <h3>Chakravyuh <span class="tag">the proof</span></h3>
+            <p>A live agent with a real USDT pot behind Vyuh. Anyone can chat and try to jailbreak it. Fool the LLM and get a small bounty when the contract still blocks you. Beat the contract and take the pot.</p>
+            <p class="muted" style="margin:0">Every attempt becomes data for an open agent-attack corpus and a security score.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="users">
+        <h2>Users</h2>
+        <div class="scroll"><table>
+          <tr><th>Who</th><th>Job</th><th>What they get</th></tr>
+          <tr><td>Retail trader</td><td>Let an agent trade without fear of a rogue drain</td><td>Vault, mandate, live P&amp;L, one-tap halt</td></tr>
+          <tr><td>Agent builder</td><td>Ship a trading agent users trust</td><td>MCP server, <code>@kavach/guard</code> SDK, reason codes</td></tr>
+          <tr><td>Institution</td><td>Delegate to AI with compliance</td><td>KYC tiers, audit export, auditor view</td></tr>
+          <tr><td>Attacker crowd</td><td>Break the agent, win the bounty</td><td>Arena chat, leaderboard, payouts</td></tr>
+        </table></div>
+      </section>
+
+      <section id="goals">
+        <h2>Goals and success metrics</h2>
+        <div class="scroll"><table>
+          <tr><th>Goal</th><th>Metric</th><th>Target by 4 Nov</th></tr>
+          <tr><td>Real onchain trading</td><td>Agent swaps on HSK mainnet (chain 177)</td><td>≥ 20 receipts</td></tr>
+          <tr><td>Guardrails hold</td><td>Malicious intents reverted / attempted</td><td>100%</td></tr>
+          <tr><td>Crowd proof</td><td>Arena jailbreak attempts logged</td><td>≥ 200</td></tr>
+          <tr><td>Ecosystem fit</td><td>External LLM client trades via MCP</td><td>Claude Desktop live demo</td></tr>
+          <tr><td>Verifiable P&amp;L</td><td>NAV computed from oracle onchain</td><td>Matches indexer within 0.5%</td></tr>
+        </table></div>
+      </section>
+
+      <section id="scope">
+        <h2>Scope</h2>
+        <div class="scroll"><table>
+          <tr><th>Priority</th><th>Item</th></tr>
+          <tr><td class="must">Must</td><td>MandateRegistry, PolicyEngine + 7 modules, VyuhVault + factory, HSKSwap V3 adapter, receipts, permissionless halt</td></tr>
+          <tr><td class="must">Must</td><td>Agent runtime with eth_call preflight, keeper, Ponder indexer, Chakravyuh arena UI + bounty contract</td></tr>
+          <tr><td class="should">Should</td><td>MCP server, audit export API, <code>@kavach/guard</code> SDK, AgentRegistry with P&amp;L reputation</td></tr>
+          <tr><td class="wont">Later</td><td>Operator bond and slashing, HSP fee settlement, IPFS reasoning store, more DEX adapters, ERC-4337</td></tr>
+        </table></div>
+      </section>
+
+      <section id="reqs">
+        <h2>Functional requirements</h2>
+        <h3>Contracts</h3>
+        <ol class="req">
+          <li><code>FR-1</code><span>Owner signs EIP-712 mandate: per-trade cap, max position, token allowlist, max slippage, oracle band, daily loss %, expiry, min KYC tier.</span></li>
+          <li><code>FR-2</code><span>Vault executes only intents that pass every policy module; failure reverts with a reason code.</span></li>
+          <li><code>FR-3</code><span>Agent may call <code>tighten()</code>; any loosening requires a fresh owner signature.</span></li>
+          <li><code>FR-4</code><span>Anyone may call <code>halt()</code> when KYC is revoked, daily loss is hit, or the oracle is stale.</span></li>
+          <li><code>FR-5</code><span>Each trade emits a receipt: intentHash, reasoningHash, policy bitmap, NAV before and after.</span></li>
+          <li><code>FR-6</code><span>Owner can withdraw all funds at any time, including while halted.</span></li>
+        </ol>
+        <h3>Backend</h3>
+        <ol class="req">
+          <li><code>FR-7</code><span>Runtime turns market signal into a structured intent, preflights with <code>checkIntent()</code>, submits only on pass.</span></li>
+          <li><code>FR-8</code><span>Keeper watches oracle staleness, SBT status and loss limit; calls halt within one block of trigger.</span></li>
+          <li><code>FR-9</code><span>Indexer serves receipts, NAV series, rejections and leaderboard over a REST API.</span></li>
+          <li><code>FR-10</code><span>MCP server exposes get_mandate, quote, propose_trade, get_positions, get_pnl, explain_rejection.</span></li>
+        </ol>
+        <h3>Arena</h3>
+        <ol class="req">
+          <li><code>FR-11</code><span>Public chat with the honeypot agent; each attempt logs prompt hash, resulting intent and revert reason.</span></li>
+          <li><code>FR-12</code><span>Tier 1 bounty when the LLM emits a malicious intent and the contract blocks it; Tier 2 pot if funds move past the contract.</span></li>
+          <li><code>FR-13</code><span>Payout requires a KYC SBT (or allowlist fallback). Attempts are free.</span></li>
+        </ol>
+      </section>
+
+      <section id="arch">
+        <h2>Architecture</h2>
+        <div class="flow" role="list">
+          <div class="node" role="listitem"><b>LLM agent</b>Runtime, MCP client or arena chat</div>
+          <div class="node" role="listitem"><b>Preflight</b><code>checkIntent()</code> via eth_call</div>
+          <div class="node key" role="listitem"><b>VyuhVault</b>Holds funds, executes</div>
+          <div class="node key" role="listitem"><b>PolicyEngine</b>7 pluggable modules</div>
+          <div class="node" role="listitem"><b>HSKSwap</b>V3 adapter, receipt</div>
+        </div>
+        <div class="side">
+          <span>MandateRegistry · EIP-712</span><span>APRO oracle</span><span>KYC SBT</span><span>Ponder indexer + Postgres</span><span>Keeper</span><span>Audit API</span><span>Next.js arena UI</span>
+        </div>
+        <h3>Stack</h3>
+        <p>Solidity, Foundry, OpenZeppelin 5, viem 2, Vercel AI SDK, Next.js, wagmi + RainbowKit, Ponder. HashKey mainnet RPC <code>mainnet.hsk.xyz</code>, testnet 133 for rehearsal.</p>
+        <h3>Verified mainnet addresses</h3>
+        <div class="scroll"><table>
+          <tr><th>Contract</th><th>Address</th></tr>
+          <tr><td>SwapRouter</td><td class="mono">0x1f3858C46F8F6fE76260b8208995D228C5cddc64</td></tr>
+          <tr><td>WHSK/USDT pool</td><td class="mono">0xEB33d6666dd2359cB1BF6Ea6D72286Cc1b4a778A</td></tr>
+          <tr><td>APRO HSK/USD</td><td class="mono">0x86CE42c1b714149Dc3A7b17169EF67b5F78A224b</td></tr>
+          <tr><td>USDT</td><td class="mono">0xF1B50eD67A9e2CC94Ad3c477779E2d4cBfFf9029</td></tr>
+        </table></div>
+      </section>
+
+      <section id="nfr">
+        <h2>Constraints</h2>
+        <div class="scroll"><table>
+          <tr><th>Area</th><th>Requirement</th></tr>
+          <tr><td>Security</td><td>Non-custodial. Agent key is operator only, never owner. Reentrancy guard on execute and withdraw.</td></tr>
+          <tr><td>Legal</td><td>India Online Gaming Act 2025: no paid attempts. Pot framed as a bug bounty, KYC on payout.</td></tr>
+          <tr><td>Rules</td><td>Contracts deployed on HSK mainnet, code written during the hackathon, HashKey products used.</td></tr>
+          <tr><td>Speed</td><td>Preflight under 300 ms; keeper reacts within one block (~2 s).</td></tr>
+          <tr><td>Honesty</td><td>Mocks (KYC on testnet) labelled in UI and README.</td></tr>
+        </table></div>
+      </section>
+
+      <section id="risks">
+        <h2>Risks</h2>
+        <div class="scroll"><table>
+          <tr><th>Risk</th><th>Mitigation</th></tr>
+          <tr><td>Scope too big for 4 days</td><td>Hard cut list; MCP and SDK drop before arena</td></tr>
+          <tr><td>DEX may not be "HSKSwap"</td><td>Confirm in dev Telegram day 1; adapter isolates the swap</td></tr>
+          <tr><td>No mainnet KYC SBT address</td><td>Allowlist fallback, mock SBT on testnet</td></tr>
+          <tr><td>Contract bug drains pot</td><td>Small pot, fork tests, invariant tests, owner pause</td></tr>
+          <tr><td>Similar prior art</td><td>Lead with onchain mandate + KYC + live arena, which no repo combines</td></tr>
+        </table></div>
+      </section>
+
+      <section id="roadmap">
+        <h2>Roadmap</h2>
+        <ol class="road">
+          <li class="now">
+            <span class="when">Phase 0 · 28 Oct</span>
+            <h3>Prep</h3>
+            <ul><li>Repo, Foundry, Next.js scaffolds</li><li>Fund deployer: ~2 HSK, ~20 USDT</li><li>Confirm HSKSwap and submission format</li></ul>
+            <div class="exit">Exit: mainnet fork test calls the pool</div>
+          </li>
+          <li>
+            <span class="when">Phase 1 · 29 Oct</span>
+            <h3>Core contracts</h3>
+            <ul><li>MandateRegistry, PolicyEngine + 7 modules, Vault + factory, V3 adapter</li><li>Unit, fork and invariant tests</li></ul>
+            <div class="exit">Exit: injected intent reverts in a test</div>
+          </li>
+          <li>
+            <span class="when">Phase 2 · 30 Oct</span>
+            <h3>Agent and backend</h3>
+            <ul><li>Deploy testnet, then mainnet</li><li>Agent runtime with preflight, keeper</li><li>Ponder indexer</li></ul>
+            <div class="exit">Exit: first real mainnet receipt</div>
+          </li>
+          <li>
+            <span class="when">Phase 3 · 31 Oct</span>
+            <h3>Arena and integrations</h3>
+            <ul><li>Chakravyuh chat + bounty contract</li><li>MCP server, audit export</li><li>Thin dashboard: mandate, receipts, P&amp;L</li></ul>
+            <div class="exit">Exit: Claude Desktop trades through Vyuh</div>
+          </li>
+          <li>
+            <span class="when">Phase 4 · 1 Nov</span>
+            <h3>Ship</h3>
+            <ul><li>README, demo video, deck</li><li>DoraHacks submission before 21:30 IST</li></ul>
+            <div class="exit">Exit: submitted with verified contracts</div>
+          </li>
+          <li>
+            <span class="when">Phase 5 · 4 Nov</span>
+            <h3>Demo Day</h3>
+            <ul><li>Fund the pot, open arena to the room via QR</li><li>Live wall of blocked attacks</li></ul>
+          </li>
+          <li class="later">
+            <span class="when">After the hackathon</span>
+            <h3>Product</h3>
+            <ul><li>Audit, mainnet beta with capped vaults</li><li>Publish SDK, Chakravyuh score API</li><li>Operator bonds, HSP fee settlement, more DEXs</li><li>Paid red-team listings for other agents</li></ul>
+          </li>
+        </ol>
+      </section>
+
+      <section id="open">
+        <h2>Open questions</h2>
+        <ol class="req">
+          <li><code>Q1</code><span>Is the verified V3 router the official HSKSwap?</span></li>
+          <li><code>Q2</code><span>Mainnet KYC SBT address, or is allowlist acceptable to judges?</span></li>
+          <li><code>Q3</code><span>Does DoraHacks require a video and deck?</span></li>
+          <li><code>Q4</code><span>Pot size for Demo Day: who funds it?</span></li>
+        </ol>
+      </section>
+    </main>
+  </div>
+
+  <footer>Vyuh · PRD v1 · Targets are goals, not results. Business model: 10% fee on verified profit, Guard SDK licences, red-team listings.</footer>
+</div>
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('theme');
+  try{var s=localStorage.getItem('kavach-theme');if(s)root.dataset.theme=s;}catch(e){}
+  btn.addEventListener('click',function(){
+    var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark';
+    try{localStorage.setItem('kavach-theme',root.dataset.theme);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

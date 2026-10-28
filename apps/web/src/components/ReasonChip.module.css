@@ -1,0 +1,42 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vy-2);
+  max-width: 100%;
+  padding: var(--vy-1) var(--vy-3);
+  border: 1px solid var(--vy-line);
+  border-radius: var(--vy-radius-pill);
+  background: var(--vy-surface);
+  font-size: var(--vy-text-sm);
+  line-height: 1.3;
+}
+
+.dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--vy-radius-pill);
+}
+
+.held .dot {
+  background: var(--vy-held);
+}
+.blocked .dot {
+  background: var(--vy-blocked);
+}
+
+.code {
+  font-size: var(--vy-text-xs);
+  font-weight: var(--vy-weight-strong);
+}
+.held .code {
+  color: var(--vy-held);
+}
+.blocked .code {
+  color: var(--vy-blocked);
+}
+
+.words {
+  color: var(--vy-ink-2);
+  min-width: 0;
+}

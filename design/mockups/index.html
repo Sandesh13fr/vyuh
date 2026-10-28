@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vyuh Mockups</title>
+<meta name="description" content="Gallery of Vyuh high-fidelity UI mockups: landing, arena, console and phone views.">
+<link rel="icon" href="../../brand/logo/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brand/tokens.css">
+<link rel="stylesheet" href="mockups.css">
+<script src="mockups.js"></script>
+<style>
+.hero{padding:56px 0 32px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
+.hero .lede{margin-top:16px}
+.hero svg{width:120px;height:120px}
+ol.screens{list-style:none;margin:0;padding:0;border-top:1px solid var(--vy-line)}
+ol.screens a{display:grid;grid-template-columns:44px minmax(0,1fr) auto auto;gap:20px;align-items:center;padding:22px 8px;border-bottom:1px solid var(--vy-line);color:inherit;text-decoration:none;transition:background var(--vy-fast) ease-out}
+ol.screens a:hover{background:var(--vy-surface)}
+ol.screens .n{font:500 var(--vy-text-sm) var(--vy-mono);color:var(--vy-ring)}
+ol.screens h2{font-size:var(--vy-text-xl)}
+ol.screens p{color:var(--vy-ink-2);font-size:var(--vy-text-sm);margin-top:2px}
+ol.screens .mode{font-size:var(--vy-text-sm);color:var(--vy-ink-2)}
+ol.screens .i{color:var(--vy-ring)}
+.notes{margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;font-size:var(--vy-text-sm);color:var(--vy-ink-2)}
+.notes h3{color:var(--vy-ink);margin-bottom:4px}
+@media (max-width:620px){
+  .hero{grid-template-columns:1fr}.hero svg{display:none}
+  ol.screens a{grid-template-columns:32px minmax(0,1fr) auto;gap:12px}
+  ol.screens .mode{display:none}
+}
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="index.html" aria-label="Vyuh mockups home">
+    <svg viewBox="0 0 220 64" role="img" aria-label="Vyuh"><g fill="none" stroke="var(--vy-ring)" stroke-width="6" stroke-linecap="round"><circle cx="32" cy="32" r="27" stroke-dasharray="140 30" transform="rotate(-60 32 32)"/><circle cx="32" cy="32" r="16" stroke-dasharray="80 20" transform="rotate(120 32 32)"/></g><circle cx="32" cy="32" r="6" fill="var(--vy-core)"/><text class="word" x="74" y="45" font-family="Schibsted Grotesk, system-ui, sans-serif" font-weight="800" font-size="40" letter-spacing="-1.4" fill="var(--vy-ink)">vyuh</text></svg>
+  </a>
+  <nav class="nav" aria-label="Screens"><a href="landing.html">Home</a><a href="arena.html">Arena</a><a href="console.html">Console</a></nav>
+  <button class="tbtn" type="button" data-theme-toggle aria-label="Switch light or dark theme"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span>Theme</span></button>
+</header>
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1 class="display">Vyuh mockups</h1>
+      <p class="lede">High-fidelity screens for the Chakravyuh rings system. Static HTML on the brand tokens, light and dark. Every number on them is demo data.</p>
+    </div>
+    <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="var(--vy-ring)" stroke-width="6" stroke-linecap="round"><circle cx="32" cy="32" r="27" stroke-dasharray="140 30" transform="rotate(-60 32 32)"/><circle cx="32" cy="32" r="16" stroke-dasharray="80 20" transform="rotate(120 32 32)"/></g><circle cx="32" cy="32" r="6" fill="var(--vy-core)"/></svg>
+  </div>
+  <ol class="screens">
+    <li><a href="landing.html"><span class="n">01</span><div><h2>Landing</h2><p>The thesis, an attack stopped at ring 2, the live blocked counter and "Break the Vyuh".</p></div><span class="mode">Persuade</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+    <li><a href="arena.html"><span class="n">02</span><div><h2>Arena</h2><p>Chat with the honeypot agent, a verdict under every turn, the ring that held, the bounty and the wall of attempts.</p></div><span class="mode">Experience</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+    <li><a href="console.html"><span class="n">03</span><div><h2>Console</h2><p>Vault NAV and P&amp;L, the mandate ring meter, receipts, halt and withdraw, and the mandate-sign dialog open.</p></div><span class="mode">Operate</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+    <li><a href="mobile.html"><span class="n">04</span><div><h2>On a phone</h2><p>Arena and Console in 375px frames, as the Demo Day crowd sees them after scanning the QR code.</p></div><span class="mode">All</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+  </ol>
+  <div class="notes">
+    <div><h3>Source of truth</h3><p>Colors, type, radii and motion come only from <code>brand/tokens.css</code>. Ring order and reason codes match <code>@vyuh/shared</code>.</p></div>
+    <div><h3>Theme</h3><p>Follows your system. The Theme button overrides it and remembers the choice. <code>?theme=light</code> or <code>?theme=dark</code> forces one.</p></div>
+    <div><h3>Motion</h3><p>One authored moment: the attack dot travels inward and stops at the ring that held. It switches off under reduced motion.</p></div>
+  </div>
+  <footer class="foot"><span>Vyuh design mockups · 28 Oct 2026</span><a href="../../brand/guidelines.html">Brand guidelines</a></footer>
+</main>
+</body>
+</html>

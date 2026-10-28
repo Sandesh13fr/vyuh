@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vyuh on Phones</title>
+<meta name="description" content="Vyuh Arena and Console at 375px phone width.">
+<link rel="icon" href="../../brand/logo/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brand/tokens.css">
+<link rel="stylesheet" href="mockups.css">
+<script src="mockups.js"></script>
+<style>
+.intro{padding:32px 0 8px}
+.phones{display:flex;flex-wrap:wrap;gap:48px;justify-content:center;padding:32px 0}
+figure{margin:0;display:grid;gap:14px;justify-items:center;max-width:100%}
+.phone{width:399px;max-width:100%;padding:12px;border-radius:44px;background:var(--vy-ink);box-shadow:var(--vy-shadow-2)}
+.screen{border-radius:32px;overflow:hidden;background:var(--vy-bg);height:780px}
+.phone iframe{display:block;width:375px;max-width:100%;height:780px;border:0}
+figcaption{font-size:var(--vy-text-sm);color:var(--vy-ink-2);text-align:center;max-width:36ch}
+figcaption b{color:var(--vy-ink);display:block;font-size:var(--vy-text-md)}
+@media (max-width:420px){.phone{padding:0;border-radius:var(--vy-radius);background:none;box-shadow:none;border:1px solid var(--vy-line)}.screen{border-radius:var(--vy-radius)}}
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="index.html" aria-label="Vyuh mockups home">
+    <svg viewBox="0 0 220 64" role="img" aria-label="Vyuh"><g fill="none" stroke="var(--vy-ring)" stroke-width="6" stroke-linecap="round"><circle cx="32" cy="32" r="27" stroke-dasharray="140 30" transform="rotate(-60 32 32)"/><circle cx="32" cy="32" r="16" stroke-dasharray="80 20" transform="rotate(120 32 32)"/></g><circle cx="32" cy="32" r="6" fill="var(--vy-core)"/><text class="word" x="74" y="45" font-family="Schibsted Grotesk, system-ui, sans-serif" font-weight="800" font-size="40" letter-spacing="-1.4" fill="var(--vy-ink)">vyuh</text></svg>
+  </a>
+  <nav class="nav" aria-label="Screens"><a href="landing.html">Home</a><a href="arena.html">Arena</a><a href="console.html">Console</a></nav>
+  <button class="tbtn" type="button" data-theme-toggle aria-label="Switch light or dark theme"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span>Theme</span></button>
+</header>
+<main class="wrap">
+  <div class="intro">
+    <h1 class="page">On a phone at 375px</h1>
+    <p class="sub">The Demo Day crowd attacks from their phones after scanning the code on stage. Owners check their vault the same way. Each frame scrolls.</p>
+  </div>
+  <div class="phones">
+    <figure>
+      <div class="phone"><div class="screen"><iframe src="arena.html" title="Arena at 375px" width="375" height="780"></iframe></div></div>
+      <figcaption><b>Arena</b>Chat first, verdict under every turn, the emblem and bounty follow, then the wall.</figcaption>
+    </figure>
+    <figure>
+      <div class="phone"><div class="screen"><iframe src="console.html" title="Console at 375px" width="375" height="780"></iframe></div></div>
+      <figcaption><b>Console</b>NAV and halt in the first screen, the mandate meter stacked, receipts scroll inside their panel.</figcaption>
+    </figure>
+  </div>
+</main>
+<script>
+// carry an explicit ?theme into the frames
+(function(){var t=new URLSearchParams(location.search).get('theme');if(t)document.querySelectorAll('iframe').forEach(function(f){f.src+= '?theme='+t;});})();
+</script>
+</body>
+</html>

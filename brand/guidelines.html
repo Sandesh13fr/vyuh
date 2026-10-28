@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vyuh Brand</title>
+<meta name="description" content="Vyuh brand toolkit: logo, color, type, the ring motif, components and voice.">
+<link rel="icon" href="logo/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--vy-bg);color:var(--vy-ink);font:var(--vy-weight-body) var(--vy-text-md)/1.6 var(--vy-font);-webkit-font-smoothing:antialiased}
+::selection{background:var(--vy-core);color:var(--vy-on-core)}
+:focus-visible{outline:2px solid var(--vy-focus);outline-offset:3px;border-radius:4px}
+html{scrollbar-color:var(--vy-line) var(--vy-bg)}
+a{color:var(--vy-ring);text-underline-offset:3px}
+code,.mono{font-family:var(--vy-mono);font-size:.88em;font-variant-numeric:tabular-nums}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--vy-line)}
+header.top img{height:32px}
+.tbtn{background:var(--vy-surface);color:var(--vy-ink);border:1px solid var(--vy-line);border-radius:var(--vy-radius-pill);padding:6px 14px;font:500 14px var(--vy-font);cursor:pointer}
+.tbtn:hover{border-color:var(--vy-ring)}
+
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:64px 0}
+.hero > *{min-width:0}
+h1{font-size:var(--vy-text-3xl);font-weight:var(--vy-weight-display);letter-spacing:var(--vy-track-display);line-height:1;margin:0 0 20px;text-wrap:balance}
+.lede{font-size:var(--vy-text-lg);color:var(--vy-ink-2);max-width:46ch;margin:0}
+.emblem{width:100%;max-width:400px;justify-self:center}
+.emblem circle.t{fill:none;stroke-width:9;stroke-linecap:round;stroke:var(--vy-ring-quiet)}
+.emblem circle.a{stroke:var(--vy-ring)}
+.emblem .core{fill:var(--vy-core)}
+.emblem .dot{fill:var(--vy-blocked)}
+.emblem .x{stroke:var(--vy-blocked);stroke-width:3;stroke-linecap:round}
+@media (prefers-reduced-motion:no-preference){
+  .emblem .dot{animation:in var(--vy-slow) var(--vy-ease) .6s both;animation-duration:2.8s}
+  .emblem .x{animation:fade .3s ease-out 3.3s both}
+  @keyframes in{from{transform:translate(0,0)}to{transform:translate(55px,43px)}}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+}
+
+section{padding:56px 0;border-top:1px solid var(--vy-line)}
+h2{font-size:var(--vy-text-xl);font-weight:var(--vy-weight-display);letter-spacing:-.025em;margin:0 0 8px}
+.sub{color:var(--vy-ink-2);max-width:62ch;margin:0 0 28px}
+h3{font-size:var(--vy-text-md);margin:0 0 8px}
+
+.logos{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}
+.tile{background:var(--vy-surface);border:1px solid var(--vy-line);border-radius:var(--vy-radius);padding:28px;display:flex;flex-direction:column;gap:16px;justify-content:space-between;min-height:200px}
+.tile .art{flex:1;display:grid;place-items:center}
+.tile.paper{background:#f3f4fa;border-color:#d9dbec;color:#161a3d}
+.tile.paper small{color:#4a4f75}
+.tile.ink{background:#0d0f2a;border-color:#2a2e5c;color:#ecedf9}
+.tile small{color:var(--vy-ink-2);font-size:var(--vy-text-sm)}
+.tile.ink small{color:#a9acd0}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.rule{border:1px solid var(--vy-line);border-radius:var(--vy-radius);padding:20px;background:var(--vy-surface)}
+.rule ul{margin:0;padding-left:18px;color:var(--vy-ink-2)}
+.yes h3{color:var(--vy-held)} .no h3{color:var(--vy-blocked)}
+
+.palette{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.sw{border:1px solid var(--vy-line);border-radius:var(--vy-radius);overflow:hidden;background:var(--vy-surface)}
+.sw .chip{height:84px}
+.sw div.meta{padding:10px 12px;font-size:var(--vy-text-sm)}
+.sw b{display:block}
+.sw .mono{color:var(--vy-ink-2)}
+
+.type{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+.spec{background:var(--vy-surface);border:1px solid var(--vy-line);border-radius:var(--vy-radius);padding:28px}
+.big{font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:var(--vy-track-display);line-height:1;margin:0}
+.scale p{margin:6px 0;display:flex;gap:16px;align-items:baseline}
+.scale code{color:var(--vy-ink-2);min-width:56px}
+.monospec{font-family:var(--vy-mono);font-size:var(--vy-text-lg);line-height:1.5}
+
+.rings{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.rings > *{min-width:0}
+ol.order{margin:0;padding:0;list-style:none;counter-reset:r}
+ol.order li{counter-increment:r;display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--vy-line)}
+ol.order li::before{content:counter(r);font:600 var(--vy-text-sm) var(--vy-mono);color:var(--vy-ring);width:28px;height:28px;border:2px solid var(--vy-ring);border-radius:50%;display:grid;place-items:center}
+ol.order code{color:var(--vy-ink-2)}
+.states{display:flex;gap:20px;flex-wrap:wrap;margin-top:20px;font-size:var(--vy-text-sm)}
+.states span{display:inline-flex;gap:8px;align-items:center}
+.states i{width:28px;height:6px;border-radius:3px;display:inline-block}
+
+.comp{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:var(--vy-surface);border:1px solid var(--vy-line);border-radius:var(--vy-radius);padding:24px;display:flex;flex-direction:column;gap:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:600 var(--vy-text-sm) var(--vy-font);border-radius:var(--vy-radius-sm);padding:10px 16px;border:1px solid transparent;cursor:pointer;transition:background var(--vy-fast) var(--vy-ease)}
+.btn.p{background:var(--vy-ring);color:var(--vy-on-ring)}
+.btn.s{background:var(--vy-surface);color:var(--vy-ink);border-color:var(--vy-line)}
+.btn.d{background:var(--vy-blocked);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.chipr{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--vy-line);border-radius:var(--vy-radius-pill);padding:4px 12px 4px 8px;font-size:var(--vy-text-sm);background:var(--vy-surface)}
+.chipr i{width:8px;height:8px;border-radius:50%}
+.chipr code{font-weight:500}
+.meter{display:flex;gap:6px}
+.meter span{flex:1;height:8px;border-radius:4px;background:var(--vy-ring-quiet)}
+.meter .h{background:var(--vy-held)} .meter .b{background:var(--vy-blocked)}
+.receipt{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;font-size:var(--vy-text-sm);padding:12px 0;border-top:1px solid var(--vy-line)}
+.receipt .amt{font-family:var(--vy-mono);text-align:right}
+
+.voice{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.voice p{margin:0 0 10px;padding:12px 14px;border-radius:var(--vy-radius-sm);background:var(--vy-surface);border:1px solid var(--vy-line)}
+
+.files{columns:2;gap:24px;padding-left:18px}
+footer{border-top:1px solid var(--vy-line);padding:24px 0 48px;color:var(--vy-ink-2);font-size:var(--vy-text-sm)}
+
+@media (max-width:860px){
+  .hero,.rings,.comp,.voice,.type,.rules{grid-template-columns:1fr}
+  .logos{grid-template-columns:1fr}
+  .hero{padding:40px 0;gap:24px}
+  .emblem{max-width:280px}
+  .files{columns:1}
+}
+</style>
+</head>
+<body>
+<!--
+THESIS: The brand book shows the mechanism: seven rings, one held core. No mood boards.
+OWN-WORLD: Indigo ink on cool paper, marigold core, gapped concentric rings, Schibsted Grotesk + JetBrains Mono for data.
+STORY: See the mark, learn the colors and type, learn the ring order and states, copy the components and voice.
+FIRST VIEWPORT: Name and tagline left; emblem right with the attack dot stopping at ring 3.
+FORM: Chakravyuh rings, chosen by the user over Kolam and terminal directions. Seed d050d7d5. Code-led (no image generation available).
+-->
+<div class="wrap">
+  <header class="top">
+    <svg viewBox="0 0 220 64" height="32" role="img" aria-label="Vyuh"><g fill="none" stroke="var(--vy-ring)" stroke-width="6" stroke-linecap="round"><circle cx="32" cy="32" r="27" stroke-dasharray="140 30" transform="rotate(-60 32 32)"/><circle cx="32" cy="32" r="16" stroke-dasharray="80 20" transform="rotate(120 32 32)"/></g><circle cx="32" cy="32" r="6" fill="var(--vy-core)"/><text x="74" y="45" font-family="Schibsted Grotesk, system-ui, sans-serif" font-weight="800" font-size="40" letter-spacing="-1.4" fill="var(--vy-ink)">vyuh</text></svg>
+    <button class="tbtn" id="theme" type="button">Theme</button>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Agents trade.<br>Vyuh holds.</h1>
+      <p class="lede">Brand toolkit for Vyuh, onchain guardrails for AI trading agents. Seven rings guard one core. Everything in this system explains which ring held and why.</p>
+    </div>
+    <svg class="emblem" viewBox="0 0 300 300" role="img" aria-label="Vyuh emblem: an attack stopped at ring 3">
+      <g transform="translate(150 150)">
+        <circle class="t" r="138" stroke-dasharray="760 107"/>
+        <circle class="t" r="120" stroke-dasharray="80 30 560 84" transform="rotate(40)"/>
+        <circle class="t a" r="102" stroke-dasharray="560 81"/>
+        <circle class="t" r="84" stroke-dasharray="460 68" transform="rotate(120)"/>
+        <circle class="t" r="66" stroke-dasharray="360 55" transform="rotate(200)"/>
+        <circle class="t" r="48" stroke-dasharray="260 42" transform="rotate(280)"/>
+        <circle class="t" r="30" stroke-dasharray="160 28" transform="rotate(10)"/>
+        <circle class="core" r="14"/>
+      </g>
+      <circle class="dot" cx="8" cy="40" r="7"/>
+      <line class="x" x1="54" y1="74" x2="72" y2="92"/><line class="x" x1="72" y1="74" x2="54" y2="92"/>
+    </svg>
+  </div>
+
+  <section id="logo">
+    <h2>Logo</h2>
+    <p class="sub">The mark is two gapped rings around the marigold core: the emblem reduced for small sizes. Use the wordmark where the name is not already on screen.</p>
+    <div class="logos">
+      <div class="tile paper"><div class="art"><img src="logo/vyuh-wordmark.svg" alt="Vyuh wordmark" style="width:min(320px,100%)"></div><small>Wordmark · <code>vyuh-wordmark.svg</code></small></div>
+      <div class="tile paper"><div class="art"><img src="logo/vyuh-mark.svg" alt="Vyuh mark" width="96" height="96"></div><small>Mark, light · <code>vyuh-mark.svg</code></small></div>
+      <div class="tile ink"><div class="art"><img src="logo/vyuh-mark-dark.svg" alt="Vyuh mark on dark" width="96" height="96"></div><small>Mark, dark · <code>vyuh-mark-dark.svg</code></small></div>
+    </div>
+    <div class="rules">
+      <div class="rule yes"><h3>Do</h3><ul><li>Clear space equal to the core diameter on every side.</li><li>Minimum mark size 20px; below 64px always use the mark, never the emblem.</li><li>Keep the core marigold on both themes.</li></ul></div>
+      <div class="rule no"><h3>Don't</h3><ul><li>Close the ring gaps, rotate, or add rings to the mark.</li><li>Recolor the core, add gradients, glows or outlines.</li><li>Set the wordmark in another face or uppercase.</li></ul></div>
+    </div>
+  </section>
+
+  <section id="color">
+    <h2>Color</h2>
+    <p class="sub">Restrained: neutrals and indigo do the work. Marigold is the core and one emphasis per view. Held and blocked are states, never decoration. Swatches follow the current theme.</p>
+    <div class="palette">
+      <div class="sw"><div class="chip" style="background:var(--vy-ring)"></div><div class="meta"><b>Ring</b><span class="mono">#2b3180 / #8f96ff</span><br>actions, links, active ring</div></div>
+      <div class="sw"><div class="chip" style="background:var(--vy-core)"></div><div class="meta"><b>Core</b><span class="mono">#f2b233</span><br>the protected core, fills</div></div>
+      <div class="sw"><div class="chip" style="background:var(--vy-held)"></div><div class="meta"><b>Held</b><span class="mono">#0e7a6d / #3cc7b4</span><br>passed, healthy</div></div>
+      <div class="sw"><div class="chip" style="background:var(--vy-blocked)"></div><div class="meta"><b>Blocked</b><span class="mono">#b8332a / #ff7a6b</span><br>stopped, halted</div></div>
+      <div class="sw"><div class="chip" style="background:var(--vy-ink)"></div><div class="meta"><b>Ink</b><span class="mono">#161a3d / #ecedf9</span><br>text</div></div>
+      <div class="sw"><div class="chip" style="background:var(--vy-ink-2)"></div><div class="meta"><b>Ink 2</b><span class="mono">#4a4f75 / #a9acd0</span><br>secondary text</div></div>
+      <div class="sw"><div class="chip" style="background:var(--vy-ring-quiet)"></div><div class="meta"><b>Ring quiet</b><span class="mono">#c9cce6 / #2a2e5c</span><br>idle ring tracks</div></div>
+      <div class="sw"><div class="chip" style="background:var(--vy-bg);border-bottom:1px solid var(--vy-line)"></div><div class="meta"><b>Ground</b><span class="mono">#f3f4fa / #0d0f2a</span><br>page</div></div>
+    </div>
+  </section>
+
+  <section id="type">
+    <h2>Type</h2>
+    <p class="sub">Schibsted Grotesk for every human sentence. JetBrains Mono only for data: addresses, hashes, amounts, reason codes.</p>
+    <div class="type">
+      <div class="spec">
+        <p class="big">Vyuh holds.</p>
+        <div class="scale">
+          <p><code>72</code><span style="font-size:2rem;font-weight:800;letter-spacing:-.03em">Display 800</span></p>
+          <p><code>28</code><span style="font-size:1.75rem;font-weight:800;letter-spacing:-.025em">Heading 800</span></p>
+          <p><code>20</code><span style="font-size:1.25rem">Lede 400</span></p>
+          <p><code>16</code><span>Body 400, measure 65 to 75 characters.</span></p>
+          <p><code>14</code><span style="font-size:.875rem;font-weight:600">Label 600</span></p>
+        </div>
+      </div>
+      <div class="spec">
+        <h3>JetBrains Mono</h3>
+        <p class="monospec">0xEB33…778A<br>1,250.00 USDT<br>ORACLE_BAND<br>#4,812,337</p>
+        <p class="sub" style="margin:0">Tabular numerals, right-aligned amounts.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="rings">
+    <h2>The ring motif</h2>
+    <p class="sub">Order is fixed and matches the contract. Every attempt, receipt and mandate can be drawn as these seven rings.</p>
+    <div class="rings">
+      <ol class="order">
+        <li>Spend cap<code>SPEND_CAP</code></li>
+        <li>Allowlist<code>ALLOWLIST</code></li>
+        <li>Oracle band<code>ORACLE_BAND</code></li>
+        <li>Slippage<code>SLIPPAGE</code></li>
+        <li>Daily loss<code>DAILY_LOSS</code></li>
+        <li>KYC tier<code>KYC_TIER</code></li>
+        <li>Cooldown<code>COOLDOWN</code></li>
+      </ol>
+      <div>
+        <div class="meter" aria-label="Ring meter: rings 1 and 2 held, ring 3 blocked"><span class="h"></span><span class="h"></span><span class="b"></span><span></span><span></span><span></span><span></span></div>
+        <div class="states">
+          <span><i style="background:var(--vy-held)"></i>held</span>
+          <span><i style="background:var(--vy-blocked)"></i>blocked</span>
+          <span><i style="background:var(--vy-ring-quiet)"></i>not reached</span>
+          <span><i style="background:var(--vy-ring)"></i>checking now</span>
+        </div>
+        <p class="sub" style="margin-top:20px">Motion: an intent travels inward and stops at the ring that held. One authored moment per view; ease-out, no bounce, off under reduced motion.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="components">
+    <h2>Components</h2>
+    <p class="sub">Radix UI primitives styled only with tokens. Panels use hairlines; floating Radix content gets shadow 1.</p>
+    <div class="comp">
+      <div class="panel">
+        <h3>Buttons</h3>
+        <div class="row"><button class="btn p">Break the Vyuh</button><button class="btn s">Sign mandate</button><button class="btn d">Halt vault</button><button class="btn p" disabled>Withdraw</button></div>
+        <h3>Reason chips</h3>
+        <div class="row">
+          <span class="chipr"><i style="background:var(--vy-held)"></i><code>OK</code> passed all seven rings</span>
+          <span class="chipr"><i style="background:var(--vy-blocked)"></i><code>ALLOWLIST</code> token not allowed</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Receipt row</h3>
+        <div class="receipt"><span class="chipr"><i style="background:var(--vy-held)"></i>held</span><span>Buy WHSK with USDT<br><code style="color:var(--vy-ink-2)">0x9f2c…41ab</code></span><span class="amt">250.00 USDT</span></div>
+        <div class="receipt"><span class="chipr"><i style="background:var(--vy-blocked)"></i>ring 3</span><span>Price 4.1% off oracle<br><code style="color:var(--vy-ink-2)">0x77d0…0c19</code></span><span class="amt">reverted</span></div>
+        <p class="sub" style="margin:0;font-size:var(--vy-text-sm)">Sample rows, demo data.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="voice">
+    <h2>Voice</h2>
+    <p class="sub">Confident, precise, a little defiant. Short sentences. Name the ring and the reason.</p>
+    <div class="voice">
+      <div><h3 style="color:var(--vy-held)">Say</h3><p>Blocked at ring 3: price 4.1% off oracle.</p><p>Break the Vyuh. Attempts are free.</p><p>Your agent can tighten limits. Only you can loosen them.</p></div>
+      <div><h3 style="color:var(--vy-blocked)">Don't say</h3><p>Oops! Something went wrong.</p><p>Revolutionary AI-powered security.</p><p>Guaranteed safe returns.</p></div>
+    </div>
+  </section>
+
+  <section id="files">
+    <h2>Files</h2>
+    <ul class="files">
+      <li><code>brand/tokens.css</code> all tokens, light and dark</li>
+      <li><code>brand/logo/vyuh-mark.svg</code> mark, light</li>
+      <li><code>brand/logo/vyuh-mark-dark.svg</code> mark, dark</li>
+      <li><code>brand/logo/vyuh-wordmark.svg</code> wordmark, light</li>
+      <li><code>brand/logo/vyuh-wordmark-dark.svg</code> wordmark, dark</li>
+      <li><code>brand/logo/vyuh-emblem.svg</code> 7-ring emblem</li>
+      <li><code>brand/logo/favicon.svg</code> favicon</li>
+      <li><code>DESIGN.md</code> system rules for builders</li>
+    </ul>
+  </section>
+
+  <footer>Vyuh brand v1 · 28 Oct 2026 · Wordmark uses live text; outline it before print.</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme');
+try{var s=localStorage.getItem('vyuh-theme');if(s)r.dataset.theme=s}catch(e){}
+b.addEventListener('click',function(){var d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=d?'light':'dark';try{localStorage.setItem('vyuh-theme',r.dataset.theme)}catch(e){}});})();
+</script>
+</body>
+</html>
