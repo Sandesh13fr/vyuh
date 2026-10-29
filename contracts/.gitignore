@@ -5,3 +5,7 @@ broadcast/
 artifacts-solc/
 .env
 build-check/
+# hardhat
+artifacts/
+cache_hardhat/
+types/

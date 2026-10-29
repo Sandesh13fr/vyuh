@@ -111,7 +111,7 @@ server.registerTool(
         reasoningHash: keccak256(toBytes(JSON.stringify({ reasoning: a.reasoning }))),
       };
       const pre = await chain.checkIntent(intent);
-      const code = reasonFromIndex(pre.code);
+      const code = pre.code;
       const submission =
         code !== "OK"
           ? { status: "skipped" as const, why: "policy rejected the intent" }

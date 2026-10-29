@@ -19,3 +19,4 @@ services/indexer/generated/
 # impeccable local
 .impeccable/config.local.json
 .impeccable/review/
+*.tsbuildinfo

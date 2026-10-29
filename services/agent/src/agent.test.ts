@@ -38,6 +38,7 @@ const allow = [MAINNET.whsk, MAINNET.usdt];
 const publicClient = {
   readContract: vi.fn(async ({ functionName, args }: { functionName: string; args?: [{ tokenOut: Address }] }) => {
     if (functionName === "nonce") return 0n;
+    if (functionName === "agent") return "0x00000000000000000000000000000000000000a9";
     const ok = allow.some((a) => isAddressEqual(a, args![0].tokenOut));
     return ok ? [0, 0] : [6, 2];
   }),

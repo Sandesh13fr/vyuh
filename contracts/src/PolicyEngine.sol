@@ -45,7 +45,7 @@ contract PolicyEngine {
         if (!oracle.isStable(i.tokenOut)) {
             uint256 balance = IERC20(i.tokenOut).balanceOf(i.vault);
             (uint256 usd,) = oracle.liabilityOf(i.tokenOut, balance + i.minAmountOut);
-            if (usd > m.maxPositionUsd) return (ReasonCode.POSITION_CAP, 1);
+            if (usd > m.maxPositionUsd) return (ReasonCode.POSITION_CAP, 0); // post-ring check, not a ring
         }
         return (ReasonCode.OK, 0);
     }

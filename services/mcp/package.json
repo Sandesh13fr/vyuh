@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.0",
+    "@vyuh/guard": "workspace:*",
     "@vyuh/shared": "workspace:*",
     "tsx": "^4.19.0",
     "viem": "^2.38.0",

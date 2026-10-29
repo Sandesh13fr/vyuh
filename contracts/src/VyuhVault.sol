@@ -107,7 +107,7 @@ contract VyuhVault is IVyuhVault, ReentrancyGuard, VyuhEvents {
         if (!oracle.isStable(tokenOut)) {
             (uint256 usd, ReasonCode code) = oracle.liabilityOf(tokenOut, IERC20(tokenOut).balanceOf(address(this)));
             if (code != ReasonCode.OK) revert PolicyViolation(code, 3);
-            if (usd > m.maxPositionUsd) revert PolicyViolation(ReasonCode.POSITION_CAP, 1);
+            if (usd > m.maxPositionUsd) revert PolicyViolation(ReasonCode.POSITION_CAP, 0); // post-ring check, not a ring
         }
     }
 

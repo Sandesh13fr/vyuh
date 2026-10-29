@@ -11,12 +11,6 @@
   gap: var(--vy-5);
 }
 
-.eyebrow {
-  color: var(--vy-ink-2);
-  font-size: var(--vy-text-sm);
-  font-weight: var(--vy-weight-strong);
-}
-
 .thesis {
   font-size: var(--vy-text-3xl);
   font-weight: var(--vy-weight-display);

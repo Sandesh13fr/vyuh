@@ -5,6 +5,7 @@ Hackathon disclosure of AI tools used to build Vyuh.
 | Date | Tool | Used for |
 |---|---|---|
 | 2026-10-28 | Claude Code (Opus 5.5), lead session | Research, PRD, roadmap, architecture spec, repo scaffold, agent files, brand tokens/logo/guidelines, integration and verification |
+| 2026-10-29 | Claude Code (Opus 5.5) | Hardhat 3 test path, mainnet fork verification, V3TwapFeed, SDK preflight fixes |
 | 2026-10-28 | Codex CLI | First pass of Solidity sources in contracts/src (stopped at usage limit) |
 | 2026-10-28 | Claude Code subagents | Contract review, tests, deploy script; SDK, agent, keeper; MCP server, indexer; Next.js + Radix web app; HTML mockups |
 

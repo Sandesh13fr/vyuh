@@ -34,9 +34,10 @@ contract VyuhVaultTest is Fixture {
     }
 
     function test_oracleBandViolationReverts() public {
+        Intent memory i_ = _intent(address(usdt), address(whsk), 100e6, 100e18);
         _expectViolation(ReasonCode.ORACLE_BAND, 3);
         vm.prank(agent);
-        vault.execute(_intent(address(usdt), address(whsk), 100e6, 100e18));
+        vault.execute(i_);
     }
 
     function test_preRingChecks() public {
@@ -53,9 +54,10 @@ contract VyuhVaultTest is Fixture {
         // HALTED
         vm.prank(owner);
         vault.ownerHalt();
+        Intent memory i_ = _intent();
         _expectViolation(ReasonCode.HALTED, 0);
         vm.prank(agent);
-        vault.execute(_intent());
+        vault.execute(i_);
     }
 
     function test_nonceReplayAndGaps() public {
@@ -74,8 +76,9 @@ contract VyuhVaultTest is Fixture {
     }
 
     function test_ownerWithdrawWorksWhileHaltedAndOracleDown() public {
+        Intent memory i_ = _intent();
         vm.prank(agent);
-        vault.execute(_intent());
+        vault.execute(i_);
         vm.prank(owner);
         vault.ownerHalt();
         whskFeed.setBroken(true);
@@ -130,8 +133,9 @@ contract VyuhVaultTest is Fixture {
     }
 
     function test_permissionlessHaltOnDailyLoss() public {
+        Intent memory i_ = _intent(address(usdt), address(whsk), 1_000e6, 1_990e18);
         vm.prank(agent);
-        vault.execute(_intent(address(usdt), address(whsk), 1_000e6, 1_990e18));
+        vault.execute(i_);
         vm.prank(stranger);
         vm.expectRevert(InvalidHalt.selector);
         vault.halt(ReasonCode.DAILY_LOSS);

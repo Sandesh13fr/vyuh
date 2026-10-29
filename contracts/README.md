@@ -37,7 +37,11 @@ forge test -vvv                       # unit + invariant; fork tests skip withou
 forge test --match-contract OwnerWithdrawInvariant -vvv
 ```
 
-No Foundry? `npm run compile:solc` compile-checks `src/`, `test/` and `script/` with solc-js (writes nothing).
+No Foundry? Two fallbacks, both via npm:
+- `npm run test:hh` runs every forge-std test (unit, fuzz, invariant) with Hardhat 3. `HSK_RPC_MAINNET=https://mainnet.hsk.xyz npm run test:fork` runs the mainnet fork tests.
+- `npm run compile:solc` compile-checks `src/`, `test/` and `script/` with solc-js (writes nothing).
+
+Hardhat cannot run `forge script` (no broadcast cheatcode); deploy needs Foundry.
 
 ## Fork test (HashKey mainnet, read-only)
 

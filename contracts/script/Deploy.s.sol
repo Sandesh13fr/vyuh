@@ -13,6 +13,7 @@ import {VaultFactory} from "../src/VaultFactory.sol";
 import {AgentRegistry} from "../src/AgentRegistry.sol";
 import {HskSwapV3Adapter} from "../src/adapters/HskSwapV3Adapter.sol";
 import {ArenaBounty} from "../src/arena/ArenaBounty.sol";
+import {V3TwapFeed, IV3PoolOracle} from "../src/oracles/V3TwapFeed.sol";
 import {SpendCapPolicy} from "../src/policies/SpendCapPolicy.sol";
 import {AllowlistPolicy} from "../src/policies/AllowlistPolicy.sol";
 import {OracleBandPolicy} from "../src/policies/OracleBandPolicy.sol";
@@ -27,13 +28,18 @@ import {MockSwapRouter} from "../test/mocks/MockSwapRouter.sol";
 /// @notice Deploys and wires Vyuh. Chain 177 uses the real HashKey contracts; any other chain
 ///         (testnet 133, anvil) gets MOCK USDT/WHSK/APRO feed/router, labelled in the output.
 /// env: DEPLOYER_PRIVATE_KEY (required), AGENT_PRIVATE_KEY, ARENA_OPERATOR_PRIVATE_KEY, KYC_SBT,
-///      ORACLE_MAX_AGE_SECS (default 3600), ARENA_BOUNTY_USDT (base units, default 5e6).
+///      ORACLE_MAX_AGE_SECS (default 3600), ARENA_BOUNTY_USDT (base units, default 5e6),
+///      APRO_WHITELISTED (default false): APRO feeds reject non-whitelisted contract reads, so mainnet
+///      uses a 30-min V3TwapFeed on the WHSK/USDT pool unless APRO has whitelisted the OracleRegistry.
 contract Deploy is Script {
     address constant ROUTER = 0x1f3858C46F8F6fE76260b8208995D228C5cddc64;
     address constant WHSK = 0xB210D2120d57b758EE163cFfb43e73728c471Cf1;
     address constant USDT = 0xF1B50eD67A9e2CC94Ad3c477779E2d4cBfFf9029;
     address constant USDC = 0x054ed45810DbBAb8B27668922D110669c9D88D0a;
     address constant APRO_HSK_USD = 0x86CE42c1b714149Dc3A7b17169EF67b5F78A224b;
+    address constant WHSK_USDT_POOL = 0xEB33d6666dd2359cB1BF6Ea6D72286Cc1b4a778A; // fee 500
+    uint32 constant TWAP_WINDOW = 1800;
+    uint16 constant TWAP_CARDINALITY = 200; // observation buffer so the TWAP can span the window as swaps accrue
 
     struct Deployed {
         MandateRegistry mandates;
@@ -50,6 +56,14 @@ contract Deploy is Script {
         address router;
     }
 
+    /// @dev APRO if whitelisted, else a permissionless pool TWAP (and grow the pool's observation buffer).
+    function _mainnetWhskFeed() internal returns (address) {
+        if (vm.envOr("APRO_WHITELISTED", false)) return APRO_HSK_USD;
+        V3TwapFeed feed = new V3TwapFeed(IV3PoolOracle(WHSK_USDT_POOL), WHSK, TWAP_WINDOW);
+        feed.grow(TWAP_CARDINALITY);
+        return address(feed);
+    }
+
     function run() external returns (Deployed memory d) {
         uint256 pk = vm.envUint("DEPLOYER_PRIVATE_KEY");
         address deployer = vm.addr(pk);
@@ -60,7 +74,7 @@ contract Deploy is Script {
 
         vm.startBroadcast(pk);
         address whskFeed;
-        (d.usdt, d.whsk, d.router, whskFeed) = mainnet ? (USDT, WHSK, ROUTER, APRO_HSK_USD) : _mocks();
+        (d.usdt, d.whsk, d.router, whskFeed) = mainnet ? (USDT, WHSK, ROUTER, _mainnetWhskFeed()) : _mocks();
 
         d.oracle = new OracleRegistry(deployer, vm.envOr("ORACLE_MAX_AGE_SECS", uint256(3600)));
         d.oracle.setAsset(d.usdt, address(0), true);

@@ -5,6 +5,11 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {HskSwapV3Adapter} from "../../src/adapters/HskSwapV3Adapter.sol";
 import {ISwapRouterV3} from "../../src/interfaces/ISwapRouterV3.sol";
 import {IAproFeed} from "../../src/interfaces/IAproFeed.sol";
+import {V3TwapFeed, IV3PoolOracle} from "../../src/oracles/V3TwapFeed.sol";
+
+interface IWETH {
+    function deposit() external payable;
+}
 
 interface IV3PoolLike {
     function liquidity() external view returns (uint128);
@@ -47,21 +52,30 @@ contract HskForkTest is Test {
         assertTrue((t0 == WHSK && t1 == USDT) || (t0 == USDT && t1 == WHSK), "pool tokens");
     }
 
-    function test_aproFeedIsLive() public view {
-        (, int256 answer,, uint256 updatedAt,) = IAproFeed(APRO_HSK_USD).latestRoundData();
-        console2.log("APRO HSK/USD", uint256(answer));
-        console2.log("decimals", IAproFeed(APRO_HSK_USD).decimals());
-        console2.log("age secs", block.timestamp - updatedAt);
+    /// @dev APRO push feeds on HashKey gate contract reads ("No access"); EOAs can read. Vyuh uses V3TwapFeed until whitelisted.
+    function test_aproFeedBlocksContractReads() public {
+        vm.expectRevert(bytes("No access"));
+        IAproFeed(APRO_HSK_USD).latestRoundData();
+    }
+
+    function test_twapFeedOnLivePool() public {
+        V3TwapFeed feed = new V3TwapFeed(IV3PoolOracle(POOL), WHSK, 1800);
+        (, int256 answer,, uint256 updatedAt,) = feed.latestRoundData();
+        console2.log("TWAP WHSK/USD (8dp)", uint256(answer));
         assertGt(answer, 0);
+        assertEq(updatedAt, block.timestamp);
     }
 
     /// @dev Proves the router speaks SwapRouter v1 exactInputSingle (with deadline). Fails on SwapRouter02.
+    ///      The live pool holds only cents of USDT (Oct 2026), so the swap is dust-sized; a 1 WHSK swap
+    ///      partially fills at the price limit and the adapter correctly reverts TransferMismatch.
     function test_adapterSwapsOnRealRouter() public {
         HskSwapV3Adapter adapter = new HskSwapV3Adapter(ISwapRouterV3(ROUTER));
-        deal(WHSK, address(this), 1e18);
-        IERC20(WHSK).approve(address(adapter), 1e18);
-        uint256 out = adapter.swap(WHSK, USDT, IV3PoolLike(POOL).fee(), 1e18, 1, address(this));
-        console2.log("1 WHSK -> USDT", out);
+        vm.deal(address(this), 1 ether);
+        IWETH(WHSK).deposit{value: 1e18}();
+        IERC20(WHSK).approve(address(adapter), 5e13);
+        uint256 out = adapter.swap(WHSK, USDT, IV3PoolLike(POOL).fee(), 5e13, 1, address(this));
+        console2.log("0.00005 WHSK -> USDT raw", out);
         assertGt(out, 0);
         assertEq(IERC20(USDT).balanceOf(address(this)), out);
     }

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
+import {Intent} from "../../src/types/VyuhTypes.sol";
 import {Fixture} from "../Fixture.sol";
 import {ReasonCode} from "../../src/types/VyuhTypes.sol";
 
@@ -16,8 +17,9 @@ contract SpendCapPolicyTest is Fixture {
     }
 
     function test_executeAboveCapReverts() public {
+        Intent memory i_ = _intent(address(usdt), address(whsk), 5_000e6, 9_950e18);
         _expectViolation(ReasonCode.SPEND_CAP, 1);
         vm.prank(agent);
-        vault.execute(_intent(address(usdt), address(whsk), 5_000e6, 9_950e18));
+        vault.execute(i_);
     }
 }

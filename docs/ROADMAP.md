@@ -4,16 +4,17 @@ Submission deadline: **1 Nov 2026, 21:30 IST**. Demo Day: 4 Nov, Mumbai.
 
 ## Phase 0 · 28 Oct · Prep
 - [x] Monorepo, agent instruction files, docs
-- [ ] Install Foundry; fund deployer (~2 HSK, ~20 USDT)
+- [x] Contract tests running (Hardhat 3 fallback; Foundry still needed to deploy)
+- [ ] Install Foundry; fund deployer (~2 HSK, ~20 USDT + liquidity to seed a pool)
 - [ ] Confirm HSKSwap router and DoraHacks submission format
-- **Exit:** mainnet fork test reads the WHSK/USDT pool
+- **Exit:** mainnet fork test reads the WHSK/USDT pool ✅ (and swaps through the real router)
 
 ## Phase 1 · 29 Oct · Core contracts
-- [ ] MandateRegistry (EIP-712, tighten-only for agent)
-- [ ] PolicyEngine + 7 policy modules
-- [ ] VyuhVault + VaultFactory, HskSwapV3Adapter
-- [ ] Unit, fork and invariant tests
-- **Exit:** an injected intent reverts in a test
+- [x] MandateRegistry (EIP-712, tighten-only for agent)
+- [x] PolicyEngine + 7 policy modules
+- [x] VyuhVault + VaultFactory, HskSwapV3Adapter
+- [x] Unit, fork and invariant tests (52 passing + 4 mainnet fork)
+- **Exit:** an injected intent reverts in a test ✅
 
 ## Phase 2 · 30 Oct · Agent and backend
 - [ ] Deploy testnet then mainnet

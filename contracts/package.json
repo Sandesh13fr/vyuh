@@ -5,13 +5,16 @@
   "scripts": {
     "build": "forge build",
     "test": "forge test",
-    "compile:solc": "node tools/compile.mjs"
+    "compile:solc": "node tools/compile.mjs",
+    "test:hh": "hardhat test solidity",
+    "test:fork": "hardhat test solidity test/fork/HskFork.t.sol"
   },
   "dependencies": {
     "@openzeppelin/contracts": "~5.1.0",
     "forge-std": "github:foundry-rs/forge-std#v1.9.4"
   },
   "devDependencies": {
+    "hardhat": "^3.21.1",
     "solc": "0.8.24"
   }
 }

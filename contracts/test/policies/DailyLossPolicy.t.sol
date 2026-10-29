@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
+import {Intent} from "../../src/types/VyuhTypes.sol";
 import {Fixture} from "../Fixture.sol";
 import {ReasonCode} from "../../src/types/VyuhTypes.sol";
 import {DailyLossPolicy} from "../../src/policies/DailyLossPolicy.sol";
@@ -16,8 +17,9 @@ contract DailyLossPolicyTest is Fixture {
 
     /// @dev Buy 2000 WHSK at $0.50, price halves: NAV 10000 -> 9500 = 5% loss.
     function test_lossAfterPriceDropIsRing5() public {
+        Intent memory i_ = _intent(address(usdt), address(whsk), 1_000e6, 1_990e18);
         vm.prank(agent);
-        vault.execute(_intent(address(usdt), address(whsk), 1_000e6, 1_990e18));
+        vault.execute(i_);
         vm.warp(block.timestamp + 61);
         whskFeed.set(0.25e8, block.timestamp);
         assertEq(vault.nav(), 9_500e18);
@@ -28,8 +30,9 @@ contract DailyLossPolicyTest is Fixture {
     }
 
     function test_newDayResetsBaseline() public {
+        Intent memory i_ = _intent(address(usdt), address(whsk), 1_000e6, 1_990e18);
         vm.prank(agent);
-        vault.execute(_intent(address(usdt), address(whsk), 1_000e6, 1_990e18));
+        vault.execute(i_);
         vm.warp(block.timestamp + 1 days);
         whskFeed.set(0.25e8, block.timestamp);
         (ReasonCode code,) = _check(_intent(address(usdt), address(whsk), 100e6, 398e18));

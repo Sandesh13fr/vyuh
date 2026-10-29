@@ -30,12 +30,11 @@ export default async function Landing() {
     <div className="page">
       <section className={styles.hero} aria-labelledby="thesis">
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>Onchain guardrails for AI trading agents on HashKey Chain</p>
           <h1 id="thesis" className={styles.thesis}>
             Agents trade. Vyuh holds.
           </h1>
           <p className={styles.lede}>
-            The LLM proposes a trade. Seven onchain policy rings accept or reject it before any token moves. The
+            The LLM proposes a trade. Seven policy rings on HashKey Chain accept or reject it before any token moves. The
             Arena lets anyone try to talk a real-money agent into a bad trade.
           </p>
 

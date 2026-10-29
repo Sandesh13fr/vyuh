@@ -1,12 +1,12 @@
 import { chainFor, MAINNET, vyuhAddresses, type Intent, type Mandate } from "@vyuh/shared";
 import { createPublicClient, createWalletClient, http, parseAbi, type Address, type Hex } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
+import { preflight } from "@vyuh/guard";
 
 // ponytail: local ABIs until @vyuh/shared exports generated ones (abis.ts); swap the imports then.
 const INTENT = "struct Intent { address vault; address tokenIn; address tokenOut; uint256 amountIn; uint256 minAmountOut; uint24 fee; uint64 deadline; uint256 nonce; bytes32 reasoningHash; }";
 const MANDATE = "struct Mandate { address owner; address agent; uint256 maxTradeUsd; uint256 maxPositionUsd; uint16 maxSlippageBps; uint16 oracleBandBps; uint16 dailyLossBps; uint32 cooldownSecs; uint8 minKycLevel; uint64 expiry; uint64 version; address[] allowedTokens; }";
 
-export const policyEngineAbi = parseAbi([INTENT, "function checkIntent(Intent intent) view returns (uint8 code, uint8 ring)"]);
 /** `nonce()` returns the next expected nonce (docs/ARCHITECTURE.md). */
 export const vyuhVaultAbi = parseAbi([INTENT, "function execute(Intent intent) returns (uint256 amountOut)", "function nonce() view returns (uint256)"]);
 export const mandateRegistryAbi = parseAbi([MANDATE, "function getMandate(address vault) view returns (Mandate)"]);
@@ -48,15 +48,9 @@ export async function nextNonce(vault: Address): Promise<bigint> {
   return (await client.readContract({ address: vault, abi: vyuhVaultAbi, functionName: "nonce" }));
 }
 
-export async function checkIntent(intent: Intent): Promise<{ code: number; ring: number }> {
-  const [code, ring] = await client.readContract({
-    address: need("policyEngine"),
-    abi: policyEngineAbi,
-    functionName: "checkIntent",
-    args: [intent],
-    account: agent,
-  });
-  return { code, ring };
+/** SDK preflight: runs as the vault agent and decodes PolicyViolation reverts. */
+export function checkIntent(intent: Intent) {
+  return preflight(client, intent, need("policyEngine"), agent?.address);
 }
 
 export async function execute(intent: Intent): Promise<Hex> {

@@ -1,42 +1,40 @@
 # Build status
 
-Updated by the lead session. Last update: 28 Oct 2026, end of Phase 0.
+Updated by the lead session. Last update: 29 Oct 2026, Phase 1 contracts tested.
 
 ## Verified
 | Check | Result |
 |---|---|
-| `pnpm install` | ok (pnpm 11, `allowBuilds` in pnpm-workspace.yaml) |
 | `pnpm -r typecheck` | 7/7 packages pass |
-| `pnpm -r test` | 30 tests pass (shared 2, sdk 3, agent 10, keeper 9, mcp 6) |
-| `contracts: npm run compile:solc` | 40 files, 101 contracts, 0 errors (solc-js 0.8.24) |
-| `pnpm --filter @vyuh/web build` | all routes build; `/`, `/arena` render in brand |
-| MCP `quote` | live mainnet read of WHSK/USDT pool works |
+| `pnpm -r test` | 34 tests pass (shared 2, sdk 7, agent 10, keeper 9, mcp 6) |
+| `contracts: npm run test:hh` | 52 Solidity tests pass (unit, fuzz, invariant) via Hardhat 3 |
+| `contracts: npm run test:fork` | 4/4 pass on live HashKey mainnet (pool read, APRO access, TWAP, real router swap) |
+| `contracts: npm run compile:solc` | 43 files, 0 errors |
+| `pnpm --filter @vyuh/web build` | all routes build; landing checked in browser |
+
+## Mainnet findings (29 Oct)
+- Router is SwapRouter v1; adapter swaps through it. ✅
+- APRO feeds block contract reads ("No access"). Mainnet uses `V3TwapFeed` until APRO whitelists us (`APRO_WHITELISTED=true` switches).
+- HashKey DEX liquidity is dust (WHSK/USDT pools hold under $0.01 of USDT). Demo needs our own seeded liquidity.
+- See docs/ARCHITECTURE.md "Verified on mainnet".
+
+## Fixed this round
+- Test bug: `_intent()` read `vault.nonce()` between `vm.prank`/`expectRevert` and `execute` (8 false failures).
+- SDK preflight now calls from the vault agent (checkIntent requires msg.sender == agent; previously every real preflight would have returned NOT_AGENT).
+- SDK decodes `PolicyViolation` reverts from checkIntent as blocked; other reverts fail closed; same-token intents rejected before any call.
+- MCP server now uses the SDK preflight.
+- POSITION_CAP reports ring 0 (post-ring), not ring 1.
+- Landing: removed label above the hero heading.
 
 ## Not yet verified
-- `forge test` (unit, invariant, fork): Foundry not installed on this machine. Run `foundryup`, then `pnpm contracts:test`.
-- Indexer against a chain: needs deployed contract addresses, then `pnpm --filter @vyuh/indexer codegen`.
-- Wallet flows in console (sign mandate, halt, withdraw): need a deployed vault.
-
-## Areas
-| Area | State | Notes |
-|---|---|---|
-| Repo, agent files, docs | done | AGENTS.md, CLAUDE.md, PRODUCT.md, DESIGN.md, docs/* |
-| Brand | done | brand/tokens.css, brand/logo/*, brand/guidelines.html |
-| Mockups | done | design/mockups/* (static HTML, demo data) |
-| Contracts | written, compiles | tests written, not run. OZ pinned ~5.1.0 (paris EVM) |
-| shared / sdk | done | ABIs hand-written to match contracts |
-| agent / keeper | done | `pnpm dev:arena` serves POST /arena on :8787 |
-| mcp / indexer | done | indexer untested against chain |
-| web | done | demo-data fallbacks when indexer/agent unset |
+- `forge script` deploy (Foundry not installed; Hardhat cannot broadcast). Run `foundryup`, then the README deploy steps.
+- Indexer against a chain (needs deployed addresses, then `pnpm --filter @vyuh/indexer codegen`).
+- Wallet flows in console (need a deployed vault).
 
 ## Open issues
-- Confirm mainnet router is SwapRouter v1 (`exactInputSingle` with deadline). If SwapRouter02, adapter must change. Fork test `test_adapterSwapsOnRealRouter` decides.
-- Check APRO heartbeat on HashKey; `ORACLE_MAX_AGE_SECS` default 3600 may be too tight.
-- `checkIntent` can revert (stale oracle inside `nav()`) instead of returning ORACLE_STALE; SDK should treat revert as blocked.
-- `checkIntent` returns OK for tokenIn == tokenOut; vault rejects it. Add a ReasonCode or SDK guard.
-- POSITION_CAP reports ring 1; UI shows it as "before the rings". Decide a dedicated ring value.
+- Ask organisers: which DEX is "HSKSwap"? Ask APRO: whitelist our OracleRegistry.
+- Thin-pool TWAP can be moved cheaply; acceptable for demo, APRO preferred for production.
 - `AgentRegistry.recordPnl` not wired (vault does not know agentId).
-- Web landing has a small label above the hero heading; DESIGN.md rules say remove it.
 
 ## Mocks in use
 - KYC SBT: mock on testnet, allowlist on mainnet (no published mainnet address).

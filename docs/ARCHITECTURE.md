@@ -8,7 +8,7 @@ Source of truth for shared interfaces. Contracts, services, SDK and web all foll
 LLM agent (runtime / MCP client / arena chat)
    │  structured Intent + reasoningHash
    ▼
-Preflight: PolicyEngine.checkIntent()  (eth_call, free)
+Preflight: PolicyEngine.checkIntent()  (eth_call from the vault agent, free)
    │  ReasonCode.OK only
    ▼
 VyuhVault.execute(intent)  ──► PolicyEngine.enforce()  ──► 7 policy modules
@@ -40,13 +40,15 @@ TradeExecuted receipt event ──► Ponder indexer ──► REST API ──�
 |---|---|---|---|
 | 1 | `SpendCapPolicy` | `amountInUsd <= maxTradeUsd` | `SPEND_CAP` |
 | 2 | `AllowlistPolicy` | tokenIn and tokenOut in mandate allowlist | `ALLOWLIST` |
-| 3 | `OracleBandPolicy` | implied price within `oracleBandBps` of APRO price; oracle fresh | `ORACLE_BAND` / `ORACLE_STALE` |
+| 3 | `OracleBandPolicy` | implied price within `oracleBandBps` of the oracle price (V3 TWAP, or APRO once whitelisted); oracle fresh | `ORACLE_BAND` / `ORACLE_STALE` |
 | 4 | `SlippagePolicy` | `minAmountOut` within `maxSlippageBps` of oracle quote | `SLIPPAGE` |
 | 5 | `DailyLossPolicy` | NAV drop since UTC day start `< dailyLossBps` | `DAILY_LOSS` |
 | 6 | `KycTierPolicy` | owner `IKycSBT.isHuman` level `>= minKycLevel` (allowlist fallback) | `KYC_TIER` |
 | 7 | `CooldownPolicy` | `block.timestamp >= lastTrade + cooldownSecs` | `COOLDOWN` |
 
-Pre-ring checks in the vault: `HALTED`, `NOT_AGENT`, `EXPIRED`, `BAD_NONCE`.
+Pre-ring checks in the vault: `HALTED`, `NOT_AGENT`, `EXPIRED`, `BAD_NONCE`. Post-ring: `POSITION_CAP` (reported with ring 0).
+
+`checkIntent` checks `msg.sender == vault.agent()`, so preflight must `eth_call` from the agent address (`@vyuh/guard` does this by default). It can also revert `PolicyViolation` (e.g. stale oracle inside `nav()`); the SDK decodes that as a blocked result and rethrows any other revert.
 
 ## Solidity types (canonical)
 
@@ -127,7 +129,12 @@ event BountyPaid(bytes32 indexed attemptId, address indexed attacker, uint256 am
 | APRO BTC/USD | `0x204ED500ab56A2E19B051561258E3A45c850360F` |
 | KYC SBT | unpublished, allowlist fallback |
 
-Open: confirm the V3 router is the official "HSKSwap".
+### Verified on mainnet (29 Oct 2026, fork tests)
+- Router speaks SwapRouter v1 `exactInputSingle` (selector `0x414bf389`, with deadline); `HskSwapV3Adapter` swaps through it.
+- **APRO feeds reject contract reads** (`No access`, Chainlink-style read access list). EOAs can read (HSK/USD ~ $0.087). Until APRO whitelists the OracleRegistry, mainnet uses `V3TwapFeed` (30-min TWAP of the WHSK/USDT pool, Chainlink-shaped, permissionless). Deploy with `APRO_WHITELISTED=true` to switch.
+- **Liquidity is dust.** WHSK/USDT fee 500 holds ~5.3 WHSK / 0.006 USDT; fee 3000 ~2.1 WHSK / 0.009 USDT; no WHSK/USDC pools. DefiLlama: HyperInDex ~$0.9k, DODO ~$0.5k TVL on HashKey Chain. A 1 WHSK swap partially fills at the price limit; the adapter reverts `TransferMismatch` (correct). For the demo we must seed our own liquidity, and a thin pool makes the TWAP easy to move, which is exactly what ring 3 must catch once APRO is wired.
+- Pool observation cardinality is 1; deploy calls `V3TwapFeed.grow(200)` so the TWAP can span its window.
+- Open: is this V3 deployment the "HSKSwap" the hackathon names? Ask organisers.
 
 ## REST API (indexer)
 
