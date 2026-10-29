@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vyuh · Agents trade. Vyuh holds.</title>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;overflow:hidden}
+body{font-family:"Schibsted Grotesk",sans-serif;-webkit-font-smoothing:antialiased}
+:root{--ground:#f3f4fa;--ink:#161a3d;--secondary:#4a4f75;--ring:#2b3180;--quiet:#c9cce6;--blocked:#b8332a;--line:#d9dbec}
+body{background:var(--ground);color:var(--ink)}
+.artboard{position:relative;width:1200px;height:630px;overflow:hidden;background:var(--ground)}
+.wordmark{position:absolute;left:56px;top:42px;display:flex;align-items:center;gap:12px}
+.wordmark svg{display:block;width:58px;height:58px}
+.wordmark span{font-size:48px;line-height:1;font-weight:800;letter-spacing:-0.035em}
+.copy{position:absolute;left:56px;top:210px;width:640px}
+h1{margin:0;font-size:80px;line-height:0.99;font-weight:800;letter-spacing:-0.035em}
+h1 span{display:block;white-space:nowrap}
+.description{margin:24px 0 0;font-size:24px;line-height:1.45;font-weight:400;max-width:565px}
+.figure{position:absolute;left:716px;top:105px;width:448px;margin:0;display:flex;flex-direction:column;align-items:center}
+.emblem{display:block;width:400px;height:400px;flex:none}
+figcaption{margin-top:16px;text-align:center;width:100%}
+.reason{display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:12px 13px;font-size:16px;line-height:1.35;font-weight:600}
+.reason-dot{display:block;flex:none;width:8px;height:8px;border-radius:50%;background:var(--blocked)}
+.data{font-family:"JetBrains Mono",monospace;font-weight:500;font-variant-numeric:tabular-nums;font-size:0.94em}
+.example{margin:9px 0 0;font-size:13px;line-height:1.4;color:var(--secondary)}
+footer{position:absolute;left:56px;bottom:32px;font-size:16px;line-height:1.4;color:var(--secondary)}
+</style>
+</head>
+<body>
+<main class="artboard" aria-label="Vyuh · Agents trade. Vyuh holds.">
+  <div class="wordmark" aria-label="Vyuh">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+  <circle cx="32" cy="32" r="27" fill="none" stroke="#2b3180" stroke-width="6" stroke-linecap="round" stroke-dasharray="140 30" transform="rotate(-60 32 32)"/>
+  <circle cx="32" cy="32" r="16" fill="none" stroke="#2b3180" stroke-width="6" stroke-linecap="round" stroke-dasharray="80 20" transform="rotate(120 32 32)"/>
+  <circle cx="32" cy="32" r="6" fill="#f2b233"/>
+</svg>
+    <span aria-hidden="true">vyuh</span>
+  </div>
+  <div class="copy">
+    <h1><span>Agents trade.</span><span>Vyuh holds.</span></h1>
+    <p class="description">Onchain guardrails for AI trading agents<br>on HashKey Chain</p>
+  </div>
+  <figure class="figure">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" class="emblem" role="img" aria-label="Illustrative policy check: an attack stopped at ring 3, the oracle band">
+  <g transform="translate(150 150)" fill="none" stroke-width="9" stroke-linecap="round">
+    <circle r="138" stroke="var(--quiet)" stroke-dasharray="760 107"/>
+    <circle r="120" stroke="var(--quiet)" stroke-dasharray="80 30 560 84" transform="rotate(40)"/>
+    <circle r="102" stroke="var(--ring)" stroke-dasharray="560 81"/>
+    <circle r="84" stroke="var(--quiet)" stroke-dasharray="460 68" transform="rotate(120)"/>
+    <circle r="66" stroke="var(--quiet)" stroke-dasharray="360 55" transform="rotate(200)"/>
+    <circle r="48" stroke="var(--quiet)" stroke-dasharray="260 42" transform="rotate(280)"/>
+    <circle r="30" stroke="var(--quiet)" stroke-dasharray="160 28" transform="rotate(10)"/>
+    <circle r="14" fill="#f2b233" stroke="none"/>
+  </g>
+  <circle cx="65.352089" cy="78.971969" r="4" fill="var(--blocked)"/>
+  <path d="M39 86l10 10m0-10L39 96" fill="none" stroke="var(--blocked)" stroke-width="3" stroke-linecap="round"/>
+</svg>
+    <figcaption>
+      <div class="reason"><i class="reason-dot" aria-hidden="true"></i><span>Blocked at ring <span class="data">3</span>: price <span class="data">4.1%</span> off oracle</span></div>
+      <p class="example">Illustrative policy check</p>
+    </figcaption>
+  </figure>
+  <footer>HSK Chain Horizon Hackathon · Track 1 · AI Agent Trading</footer>
+</main>
+</body>
+</html>
