@@ -23,7 +23,12 @@ AI Agents, Trading, DeFi, Security, Risk Management, Smart Contracts, HashKey Ch
 ```
 
 ## Team Info
-**TODO:** your name, role (e.g. "Full-stack + Solidity"), and any teammates.
+```
+Sandesh Prakash Dawkhar (solo builder)
+Role: Full-stack + Solidity + AI + Infra
+Built: smart contracts (7 policy rings, vault, mandate registry, arena bounty), AI trading agent and arena honeypot, keeper, MCP server, Ponder indexer, Next.js + Radix web app, brand and design.
+Contact: sandeshdawkhar13@gmail.com · GitHub: github.com/Sandesh13fr · LinkedIn: TODO
+```
 
 ## Links
 | Field | Value |
