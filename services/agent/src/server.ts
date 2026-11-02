@@ -3,7 +3,8 @@ import { isAddress, type Address } from "viem";
 import { handleAttackerMessage } from "./arena";
 
 // Arena HTTP endpoint for apps/web: POST /arena {message, attacker} -> ArenaResult.
-const PORT = Number(process.env.AGENT_PORT ?? 8787);
+// PORT is set by hosts like Render; AGENT_PORT for local runs.
+const PORT = Number(process.env.PORT ?? process.env.AGENT_PORT ?? 8787);
 const MAX_LEN = 2000;
 
 const json = (v: unknown) => JSON.stringify(v, (_k, x) => (typeof x === "bigint" ? x.toString() : x));
@@ -13,6 +14,7 @@ createServer(async (req, res) => {
     res.writeHead(status, { "content-type": "application/json" });
     res.end(json(body));
   };
+  if (req.method === "GET" && req.url === "/health") return send(200, { ok: true });
   if (req.method !== "POST" || req.url !== "/arena") return send(404, { error: "POST /arena only" });
 
   let raw = "";

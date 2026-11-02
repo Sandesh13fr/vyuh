@@ -1,10 +1,13 @@
 import { db } from "ponder:api";
 import { attacker, attempt, haltEvent, mandate, navPoint, receipt, vault } from "ponder:schema";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { asc, desc, eq, inArray } from "ponder";
 import { isAddress, type Hex } from "viem";
 
 const app = new Hono();
+// Public read-only API: the web app on another origin (Vercel) reads it from the browser.
+app.use("*", cors({ origin: "*", allowMethods: ["GET"] }));
 
 // bigint is not JSON; ship amounts as decimal strings (clients parse with BigInt()).
 const json = (data: unknown, status = 200) =>

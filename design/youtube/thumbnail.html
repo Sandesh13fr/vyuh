@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Vyuh Thumbnail</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&family=Noto+Serif+JP:wght@900&family=VT323&display=block">
+<style>
+  html,body{margin:0;background:#000}
+  .t{position:relative;width:1280px;height:720px;overflow:hidden;background:#12052b center/cover no-repeat}
+  .t::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,2,36,.78) 0%,rgba(14,2,36,.45) 38%,rgba(14,2,36,0) 58%)}
+  .copy{position:absolute;left:56px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;z-index:2}
+  .brand{font:400 52px/1 "VT323",monospace;color:#fff;letter-spacing:4px;text-shadow:3px 3px 0 rgba(0,0,0,.6);margin-bottom:14px}
+  .brand b{color:#ff4fa8}
+  .h{font:900 132px/0.92 "Inter",sans-serif;letter-spacing:-0.045em;color:#fff;margin:0;
+     text-shadow:-6px -3px 0 #ff2bd6,6px 4px 0 #00f0ff,0 10px 30px rgba(20,0,40,.9)}
+  .h.y{color:#ffe36e;margin-top:10px}
+  .tag{margin-top:26px;display:inline-block;align-self:flex-start;font:400 40px/1 "VT323",monospace;color:#fff;background:#d81e5b;padding:8px 16px 6px;border:3px solid #fff;box-shadow:6px 6px 0 rgba(0,0,0,.45)}
+</style></head>
+<body>
+<div class="t" id="thumb" style="background-image:url(art-ART.png)">
+  <div class="copy">
+    <div class="brand">▶ <b>VYUH</b> · HASHKEY</div>
+    <p class="h">AI FOOLED.</p>
+    <p class="h y">VAULT SAFE.</p>
+    <span class="tag">TRY TO BREAK IT</span>
+  </div>
+</div>
+<script>
+  const art = new URLSearchParams(location.search).get('art') || '2';
+  document.getElementById('thumb').style.backgroundImage = `url(art-${art}.png)`;
+</script>
+</body></html>

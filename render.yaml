@@ -1,0 +1,64 @@
+# Render Blueprint: Postgres + indexer (Ponder REST API) + arena agent (HTTP).
+# Render dashboard -> New -> Blueprint -> pick this repo. Values marked sync: false are typed in the dashboard.
+databases:
+  - name: vyuh-db
+    plan: free
+    databaseName: vyuh
+    user: vyuh
+
+services:
+  - type: web
+    name: vyuh-indexer
+    runtime: node
+    plan: free
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @vyuh/indexer exec ponder codegen
+    startCommand: pnpm --filter @vyuh/indexer exec ponder start --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        fromDatabase: { name: vyuh-db, property: connectionString }
+      - key: DATABASE_SCHEMA
+        value: vyuh
+      - key: CHAIN_ID
+        value: "177"
+      - key: HSK_RPC_MAINNET
+        value: https://mainnet.hsk.xyz
+      - key: START_BLOCK
+        sync: false
+      - key: VAULT_FACTORY
+        sync: false
+      - key: MANDATE_REGISTRY
+        sync: false
+      - key: ARENA_BOUNTY
+        sync: false
+
+  - type: web
+    name: vyuh-agent
+    runtime: node
+    plan: free
+    buildCommand: corepack enable && pnpm install --frozen-lockfile
+    startCommand: pnpm --filter @vyuh/agent serve
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: CHAIN_ID
+        value: "177"
+      - key: HSK_RPC_MAINNET
+        value: https://mainnet.hsk.xyz
+      - key: LLM_MODEL
+        value: claude-sonnet-5-5
+      - key: DRY_RUN
+        value: "false"
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: POLICY_ENGINE
+        sync: false
+      - key: ARENA_VAULT
+        sync: false
+      - key: ARENA_BOUNTY
+        sync: false
+      - key: ARENA_OPERATOR_PRIVATE_KEY
+        sync: false
